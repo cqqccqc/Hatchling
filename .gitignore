@@ -1,68 +1,105 @@
-# Prerequisites
-*.d
+# ============================================
+# OS 生成文件
+# ============================================
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+Desktop.ini
 
-# Compiled Object files
+# ============================================
+# 编辑器 / IDE
+# ============================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ============================================
+# Claude Code 本地配置（settings.json 可提交共享）
+# ============================================
+.claude/settings.local.json
+
+# ============================================
+# ESP-IDF
+# 构建产物与本地配置；sdkconfig.defaults 与
+# dependencies.lock 请保持提交（可复现构建）
+# ============================================
+build/
+Build/
+build-*/
+sdkconfig
+sdkconfig.old
+managed_components/
+firmware.bin
+partitions.bin
+bootloader*.bin
+
+# 若改用 PlatformIO
+.pio/
+
+# ============================================
+# C/C++ 编译产物
+# ============================================
+*.d
 *.slo
 *.lo
 *.o
 *.obj
-
-# Precompiled Headers
 *.gch
 *.pch
-
-# Linker files
 *.ilk
-
-# Debugger Files
 *.pdb
-
-# Compiled Dynamic libraries
 *.so
+*.so.*
 *.dylib
 *.dll
-*.so.*
-
-# Fortran module files
 *.mod
 *.smod
-
-# Compiled Static libraries
 *.lai
 *.la
 *.a
 *.lib
-
-# Executables
 *.exe
 *.out
 *.app
+*.elf
+*.map
+*.dwo
 
-# Build directories
-build/
-Build/
-build-*/
+# ============================================
+# Python（资产管线 / 工具脚本）
+# ============================================
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
 
-# CMake generated files
+# ============================================
+# Node（像素工具 / Web 预览工具链）
+# ============================================
+node_modules/
+dist/
+
+# ============================================
+# CMake 生成文件
+# ============================================
 CMakeFiles/
 CMakeCache.txt
 cmake_install.cmake
-Makefile
 install_manifest.txt
 compile_commands.json
 
-# Temporary files
+# ============================================
+# 临时文件 / 日志 / 测试输出
+# ============================================
 *.tmp
 *.log
 *.bak
-*.swp
-
-# vcpkg
-vcpkg_installed/
-
-# debug information files
-*.dwo
-
-# test output & cache
 Testing/
 .cache/
