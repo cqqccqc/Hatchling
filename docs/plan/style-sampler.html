@@ -3,22 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>蛋生 · 像素风格采样器</title>
+<title>蛋生 · 电子生命采样器 v0.2</title>
 <style>
   :root {
-    --bg: #0d0f14;
-    --card: #161a22;
-    --border: #232a36;
+    --bg: #08090d;
+    --card: #10141d;
+    --border: #1d2430;
     --text: #e8eaf0;
-    --dim: #8b93a3;
-    --accent: #ffd166;
+    --dim: #7d8698;
+    --accent: #2ce8f5;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
     background: var(--bg);
     background-image:
-      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      linear-gradient(rgba(44,232,245,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(44,232,245,0.025) 1px, transparent 1px);
     background-size: 24px 24px;
     color: var(--text);
     font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", monospace;
@@ -32,19 +32,19 @@
   .genebar {
     display: inline-flex; align-items: center; gap: 14px;
     margin-top: 16px; padding: 10px 18px;
-    background: var(--card); border: 1px solid var(--border); border-radius: 12px;
-    font-size: 14px;
+    background: var(--card); border: 1px solid var(--accent); border-radius: 12px;
+    font-size: 14px; box-shadow: 0 0 18px rgba(44,232,245,0.12);
   }
   .genebar b { color: var(--accent); }
   button {
-    background: #222835; color: var(--text);
+    background: #1a2230; color: var(--text);
     border: 1px solid var(--border); border-radius: 8px;
     padding: 6px 14px; font-size: 13px; cursor: pointer;
     transition: all .15s;
   }
   button:hover { border-color: var(--accent); color: var(--accent); }
-  #reroll { background: var(--accent); color: #1a1c22; border: none; font-weight: bold; }
-  #reroll:hover { filter: brightness(1.1); color: #1a1c22; transform: scale(1.05); }
+  #reroll { background: var(--accent); color: #06232a; border: none; font-weight: bold; }
+  #reroll:hover { filter: brightness(1.15); color: #06232a; transform: scale(1.05); }
   .hint { color: var(--dim); font-size: 12px; margin-top: 14px; }
   main { display: flex; flex-wrap: wrap; justify-content: center; gap: 22px; max-width: 1100px; margin: 0 auto; }
   .card {
@@ -52,20 +52,21 @@
     padding: 18px 18px 16px; width: 320px;
     display: flex; flex-direction: column; align-items: center;
   }
-  .card h2 { font-size: 16px; margin-bottom: 4px; }
+  .card h2 { font-size: 16px; margin-bottom: 4px; color: var(--accent); }
   .card .desc { font-size: 11px; color: var(--dim); margin-bottom: 12px; }
   .stage {
     border-radius: 12px; margin-bottom: 12px; cursor: pointer;
-    background: radial-gradient(ellipse at 50% 30%, #1c2230 0%, #12151d 70%);
-    border: 1px solid #1e242f;
+    background: #05060a;
+    border: 1px solid #161c27;
     display: flex; align-items: center; justify-content: center;
+    box-shadow: inset 0 0 40px rgba(0,0,0,0.7);
   }
   canvas { image-rendering: pixelated; image-rendering: crisp-edges; display: block; }
   .swatches { display: flex; flex-wrap: wrap; gap: 3px; margin-bottom: 12px; justify-content: center; }
   .sw { width: 12px; height: 12px; border-radius: 2px; }
   .btns { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
   .btns button { padding: 5px 10px; font-size: 12px; }
-  .btns button.on { background: var(--accent); color: #1a1c22; font-weight: bold; }
+  .btns button.on { background: var(--accent); color: #06232a; font-weight: bold; }
   .strip { display: flex; align-items: flex-end; gap: 10px; margin-top: 14px; }
   .strip .lab { font-size: 10px; color: var(--dim); }
   footer { text-align: center; color: var(--dim); font-size: 12px; margin-top: 40px; }
@@ -73,67 +74,59 @@
 </head>
 <body>
 <header>
-  <h1>🥚 蛋生<span class="en">DANSHENG</span></h1>
-  <p class="sub">像素风格采样器 —— 同一个基因组 · 三种美术方向 · 点宠物可以摸摸它</p>
+  <h1>🥚 蛋生<span class="en">DANSHENG v0.2 CYBER</span></h1>
+  <p class="sub">电子生命采样器 —— 同一个赛博基因组 · 三种抽象身体原型 · 点宠物可以摸摸它</p>
   <div class="genebar">
     <span id="geneInfo"></span>
     <button id="reroll">🎲 基因重组</button>
   </div>
-  <p class="hint">（睡着时摸它，会被嫌弃哦）</p>
+  <p class="hint">（睡着时摸它，会被嫌弃；它会瞬移而不是走路；升级会涨版本号）</p>
 </header>
 <main id="cards"></main>
-<footer>蛋生 · 风格采样器 v0.1 —— 这个渲染器就是模拟器与基因系统的地基</footer>
+<footer>蛋生 · 电子生命采样器 v0.2 —— 悬浮 / 瞬移 / glitch / 版本升级，全部程序化生成</footer>
 
 <script>
 "use strict";
 
-/* ---------------- 色板 ---------------- */
-const PALETTES = {
-  sweetie: ["#1a1c2c","#5d275d","#b13e53","#ef7d57","#ffcd75","#a7f070","#38b764","#257179","#29366f","#3b5dc9","#41a6f6","#73eff7","#f4f4f4","#94b0c2","#566c86","#333c57"],
-  endesga: ["#be4a2f","#d77643","#ead4aa","#e4a672","#b86f50","#733e39","#3e2731","#a22633","#e43b44","#f77622","#feae34","#fee761","#63c74d","#3e8948","#265c42","#193c3e","#124e89","#0099db","#2ce8f5","#ffffff","#c0cbdc","#8b9bb4","#5a6988","#3a4466","#262b44","#181425","#ff0044","#68386c","#b55088","#f6757a","#e8b796","#c28569"],
-  pico8:   ["#000000","#1D2B53","#7E2553","#008751","#AB5236","#5F574F","#C2C3C7","#FFF1E8","#FF004D","#FFA300","#FFEC27","#00E436","#29ADFF","#83769C","#FF77A8","#FFCCAA"]
-};
-
-/* 体色基因：每种风格 8 个候选 [base, shade, light, 中文名] */
-const COLS = {
-  A: [
-    ["#ffcd75","#ef7d57","#f4f4f4","奶油"], ["#ef7d57","#b13e53","#ffcd75","蜜桃"],
-    ["#a7f070","#38b764","#f4f4f4","薄荷"], ["#41a6f6","#29366f","#73eff7","天空"],
-    ["#b13e53","#5d275d","#ef7d57","樱花"], ["#94b0c2","#566c86","#f4f4f4","灰蓝"],
-    ["#566c86","#333c57","#94b0c2","石墨"], ["#f4f4f4","#94b0c2","#73eff7","冰雪"]
-  ],
-  B: [
-    ["#e8b796","#c28569","#ead4aa","奶油"], ["#f6757a","#b55088","#e8b796","樱粉"],
-    ["#0099db","#124e89","#2ce8f5","天蓝"], ["#3e8948","#265c42","#63c74d","抹茶"],
-    ["#feae34","#b86f50","#fee761","柠檬"], ["#b55088","#68386c","#f6757a","薰衣草"],
-    ["#8b9bb4","#5a6988","#c0cbdc","灰蓝"], ["#ead4aa","#c28569","#ffffff","奶白"]
-  ],
-  C: [
-    ["#FFCCAA","#AB5236","#FFF1E8","奶油"], ["#FF77A8","#7E2553","#FFF1E8","樱花"],
-    ["#00E436","#008751","#FFF1E8","薄荷"], ["#29ADFF","#1D2B53","#FFF1E8","天空"],
-    ["#FFEC27","#FFA300","#FFF1E8","柠檬"], ["#FFA300","#AB5236","#FFEC27","橘子"],
-    ["#83769C","#1D2B53","#C2C3C7","紫晶"], ["#FFF1E8","#C2C3C7","#FFF1E8","雪白"]
-  ]
-};
-const EAR_NAMES = { pointy:"尖耳", round:"圆耳", droopy:"垂耳", antenna:"天线" };
-const EYE_NAMES = { dot:"豆豆眼", big:"星星眼", sleepy:"眯眯眼" };
-const PAT_NAMES = { none:"纯色", belly:"肚皮", stripes:"条纹", spots:"斑点" };
-const NAMES1 = ["咕","啾","波","噗","咪","噜","布","豆","麦","泡"];
-const NAMES2 = ["咪","噜","蛋","宝","球","啾","崽","团","米","布"];
+/* ---------------- 霓虹体色基因 [base, shade, light, 名] ---------------- */
+const COLS = [
+  ["#2ce8f5","#0099db","#ffffff","青霓虹"],
+  ["#b55088","#68386c","#f6757a","紫电"],
+  ["#63c74d","#265c42","#fee761","荧光绿"],
+  ["#f77622","#b86f50","#feae34","熔岩橙"],
+  ["#e43b44","#a22633","#f6757a","警报红"],
+  ["#124e89","#193c3e","#2ce8f5","星际蓝"],
+  ["#fee761","#feae34","#ffffff","电光黄"],
+  ["#c0cbdc","#8b9bb4","#ffffff","幽白"]
+];
+const OUTLINE = "#181425", DARK = "#262b44";
+const NEONS = ["#2ce8f5","#fee761","#f6757a","#63c74d"];
+const ANT_NAMES = { pointy:"三角标", round:"单球天线", droopy:"光环", antenna:"双叉天线" };
+const EYE_NAMES = { dot:"LED圆眼", big:"星芒眼", sleepy:"待机条" };
+const PAT_NAMES = { none:"纯色", belly:"电路纹", stripes:"数据流", spots:"斑块" };
+const GLITCH_NAMES = ["低频","中频","高频"];
+const GLITCH_MS = [[14000,24000],[7000,13000],[3500,7000]];
+const N1 = ["零","波","咕","壹","噗","啾","咖","豆","咪","泡"];
+const N2 = ["波","咪","豆","崽","零","球","噜","团","电","泡"];
 
 /* ---------------- 基因组 ---------------- */
-let gene = null;
+let gene = null, petVersion = 1;
 function rerollGene() {
   const pick = a => a[Math.floor(Math.random() * a.length)];
   gene = {
-    color: Math.floor(Math.random() * 8),
-    ears: pick(["pointy","round","droopy","antenna"]),
+    color: Math.floor(Math.random() * COLS.length),
+    antenna: pick(["pointy","round","droopy","antenna"]),
     eyes: pick(["dot","big","sleepy"]),
     pattern: pick(["none","belly","stripes","spots"]),
-    name: pick(NAMES1) + pick(NAMES2)
+    glitch: Math.floor(Math.random() * 3),
+    name: pick(N1) + pick(N2)
   };
+  updateGeneInfo();
+}
+function updateGeneInfo() {
+  const g = gene;
   document.getElementById("geneInfo").innerHTML =
-    `当前宠物 <b>${gene.name}</b> ：${COLS.A[gene.color][3]} · ${EAR_NAMES[gene.ears]} · ${EYE_NAMES[gene.eyes]} · ${PAT_NAMES[gene.pattern]}`;
+    `<b>${g.name}</b> v${petVersion} ：${COLS[g.color][3]} · ${ANT_NAMES[g.antenna]} · ${EYE_NAMES[g.eyes]} · ${PAT_NAMES[g.pattern]} · glitch${GLITCH_NAMES[g.glitch]}`;
 }
 
 /* ---------------- 像素网格 ---------------- */
@@ -141,11 +134,8 @@ const colorCache = {};
 function parseColor(c) {
   if (colorCache[c]) return colorCache[c];
   let r, g, b, a = 255;
-  if (c.length === 7) {
-    r = parseInt(c.slice(1,3),16); g = parseInt(c.slice(3,5),16); b = parseInt(c.slice(5,7),16);
-  } else {
-    r = parseInt(c.slice(1,3),16); g = parseInt(c.slice(3,5),16); b = parseInt(c.slice(5,7),16); a = parseInt(c.slice(7,9),16);
-  }
+  r = parseInt(c.slice(1,3),16); g = parseInt(c.slice(3,5),16); b = parseInt(c.slice(5,7),16);
+  if (c.length === 9) a = parseInt(c.slice(7,9),16);
   return colorCache[c] = [r, g, b, a];
 }
 
@@ -170,6 +160,21 @@ class Grid {
     const dx = (x - cx) / rx, dy = (y - cy) / ry;
     return dx * dx + dy * dy <= 1;
   }
+  diamond(cx, cy, a, b, c) {  // 菱形（a/b 为半对角线）
+    for (let y = Math.floor(cy - b); y <= Math.ceil(cy + b); y++)
+      for (let x = Math.floor(cx - a); x <= Math.ceil(cx + a); x++)
+        if (Math.abs(x - cx) * b + Math.abs(y - cy) * a <= a * b) this.px(x, y, c);
+  }
+  inDiamond(cx, cy, a, b, x, y) {
+    return Math.abs(x - cx) * b + Math.abs(y - cy) * a <= a * b;
+  }
+  ring(cx, cy, rx, ry, c) {  // 空心椭圆环
+    const n = Math.max(24, Math.round((rx + ry) * 3));
+    for (let i = 0; i < n; i++) {
+      const t = i / n * Math.PI * 2;
+      this.px(cx + Math.cos(t) * rx, cy + Math.sin(t) * ry, c);
+    }
+  }
   stamp(rows, x, y, c, scale = 1) {
     for (let j = 0; j < rows.length; j++)
       for (let i = 0; i < rows[j].length; i++)
@@ -191,295 +196,232 @@ function renderGrid(grid, canvas) {
   ctx.putImageData(img, 0, 0);
 }
 
-/* ---------------- 三种风格的绘制 ---------------- */
-/* 共享：吃的小莓果 */
-function drawBerry(g, x, y, r, outline) {
-  g.ell(x, y, r, r, outline);
-  g.ell(x, y, r - 0.8, r - 0.8, "#e43b44");
-  g.px(x - r/2, y - r/2, "#ff8f8f");
-  g.px(x, y - r - 1, "#3e8948");
-  g.px(x + 1, y - r - 1, "#63c74d");
-}
-
+/* ---------------- 通用部件 ---------------- */
 function resolveEyes(card, now) {
   if (card.anim === "annoyed") return "annoyed";
   if (card.anim === "happy") return "happy";
   if (card.anim === "sleep") return "closed";
   if (now < card.blinkUntil) return "blink";
-  return gene.eyes; // dot / big / sleepy
+  return gene.eyes;
 }
 
-/* ============ A · 复古掌机 32×32 Sweetie-16 黑描边 ============ */
-function drawA(g, card, now) {
-  const [base, shade, light] = COLS.A[gene.color];
-  const outline = "#1a1c2c", eyeC = "#1a1c2c";
-  const cx = 16;
-  let rx = 9, ry = 8, dy = 0, dx = 0;
-  const eyeState = resolveEyes(card, now);
-
-  if (card.anim === "happy") dy = -Math.round(Math.abs(Math.sin((now - card.t0)/1000 * Math.PI * 2.5)) * 3);
-  if (card.anim === "walk") {
-    const ph = now / 1000;
-    dx = Math.sin(ph * 2.2) * 6;
-    dy = (Math.sin(ph * 8.8) > 0) ? -1 : 0;
+/* LED 眼：眼白核心 + 深色包边，任何体色上都可读 */
+function drawEye(g, x, y, state, glow) {
+  if (state === "closed" || state === "blink") { g.rect(x - 2, y, 4, 1, OUTLINE); return; }
+  if (state === "happy") { g.px(x - 2, y + 1, glow); g.px(x - 1, y, glow); g.px(x, y, glow); g.px(x + 1, y + 1, glow); return; }
+  if (state === "annoyed") {  // X 形 = LED 报错脸
+    for (let i = -1; i <= 1; i++) { g.px(x + i, y + i, "#e43b44"); g.px(x + i, y - i, "#e43b44"); }
+    return;
   }
-  if (card.anim === "sleep") { rx = 11; ry = 6; }
+  if (state === "dot") { g.ell(x, y, 2.1, 2.1, OUTLINE); g.ell(x, y, 1.3, 1.3, "#eafcff"); g.px(x - 1, y - 1, "#ffffff"); }
+  else if (state === "big") {  // 星芒（十字）
+    g.px(x, y - 2, glow); g.px(x, y + 2, glow); g.px(x - 2, y, glow); g.px(x + 2, y, glow);
+    g.px(x - 1, y - 1, glow); g.px(x + 1, y - 1, glow); g.px(x - 1, y + 1, glow); g.px(x + 1, y + 1, glow);
+    g.px(x, y, "#ffffff");
+  }
+  else { g.rect(x - 2, y, 4, 1, OUTLINE); g.px(x - 2, y + 1, glow); }  // 待机条 + 微光
+}
 
-  const bottom = 26, cy = bottom - ry + dy, X = cx + dx;
-  g.ell(X, 29, rx - 2, 1.5, "#00000044");            // 影子（不随跳跃）
+/* 天线（画在身体前，坐标为身体顶点） */
+function drawAntenna(g, x, y, glow, now) {
+  if (gene.antenna === "round") {
+    g.rect(x, y - 4, 1, 4, DARK); g.ell(x, y - 5.5, 2, 2, glow); g.px(x - 1, y - 6.5, "#ffffff");
+    if (Math.floor(now / 800) % 2) g.px(x + 2, y - 8, glow);  // 信号闪点
+  } else if (gene.antenna === "antenna") {
+    g.rect(x - 3, y - 4, 1, 4, DARK); g.rect(x + 3, y - 4, 1, 4, DARK);
+    g.px(x - 3, y - 5, glow); g.px(x + 3, y - 5, glow);
+  } else if (gene.antenna === "droopy") {  // 悬浮光环
+    g.ring(x, y - 6, 5, 1.6, glow);
+    g.px(x + 5, y - 6, "#ffffff");
+  } else {  // 三角标
+    for (let i = 0; i < 4; i++) g.rect(x - i, y - 1 - i, i * 2 + 1, 1, i < 2 ? glow : DARK);
+  }
+}
 
-  /* 耳朵（画在身体后面） */
-  const eY = cy - ry + 1;
-  const ex = [X - 5, X + 5];
-  for (const e of ex) {
-    if (gene.ears === "pointy") {
-      for (let i = 0; i < 4; i++) {
-        const w = i + 1;
-        g.rect(e - Math.floor((w + 2) / 2), eY - 4 + i, w + 2, 1, outline);
-        g.rect(e - Math.floor(w / 2), eY - 4 + i, w, 1, base);
+/* 吃的数据豆 */
+function drawDataBean(g, x, y, s) {
+  if (s <= 0) return;
+  g.rect(x - s, y - s, s * 2 + 1, s * 2 + 1, OUTLINE);
+  g.rect(x - s + 1, y - s + 1, s * 2 - 1, s * 2 - 1, "#fee761");
+  g.px(x, y, DARK); g.px(x - s + 1, y - s + 1, "#ffffff");
+}
+
+/* ---------------- 三种身体原型（48×48） ---------------- */
+/* env: {X(中心x), dy(浮动力), base/shade/light, glow, eyeState, dim, now, card} */
+
+/* 1. 数据幽灵：圆顶 + 波浪裙摆 */
+function drawGhost(g, e) {
+  const { X, dy, base, shade, light, glow, eyeState, now } = e;
+  const cy = 23 + dy, rx = 12, ry = 11;
+
+  g.ell(X, 43, 9, 2, base + "2e");  // 悬浮光垫
+
+  /* 裙摆两帧波动 */
+  const phase = Math.floor(now / 450) % 2;
+  const bumps = phase ? [[-12,-4,4,12], 3.4] : [[-9,0,9], 4.8];
+  const parts = [
+    [X, cy - 3, rx, ry, "ell"],
+    [X, cy + 3, rx, 7, "rect"],
+    ...bumps[0].map(bx => [X + bx, cy + 7, bumps[1], 3.2, "ell"])
+  ];
+  /* 描边 pass + 本体 pass（并集轮廓） */
+  for (const p of parts) {
+    if (p[4] === "ell") g.ell(p[0], p[1], p[2] + 1.2, p[3] + 1.2, OUTLINE);
+    else g.rect(p[0] - p[2] - 1.2, p[1] - p[3] - 1.2, (p[2] + 1.2) * 2, (p[3] + 1.2) * 2, OUTLINE);
+  }
+  for (const p of parts) {
+    if (p[4] === "ell") g.ell(p[0], p[1], p[2], p[3], base);
+    else g.rect(p[0] - p[2], p[1] - p[3], p[2] * 2, p[3] * 2, base);
+  }
+  g.ell(X - 5, cy - 8, 3, 2, light);  // 高光
+
+  drawPattern(g, X, cy, rx, ry, "ell", light, shade, now);
+
+  drawEye(g, X - 5, cy - 3, eyeState, glow);
+  drawEye(g, X + 5, cy - 3, eyeState, glow);
+  g.rect(X - 8, cy + 2, 2, 1, glow + "88"); g.rect(X + 6, cy + 2, 2, 1, glow + "88");  // LED 腮
+  drawAntenna(g, X, cy - ry + 1, glow, now);
+}
+
+/* 2. 悬浮豆荚：胶囊 + 观察窗 + 尾焰 */
+function drawPod(g, e) {
+  const { X, dy, base, shade, light, glow, eyeState, now, card } = e;
+  const cy = 23 + dy, rx = 11.5, ry = 14;
+
+  g.ell(X, 43, 8, 2, base + "2e");
+  if (e.animNow !== "sleep") {  // 悬浮尾焰
+    const f = Math.random();
+    g.px(X - 2 + Math.floor(f * 5 - 2), 39 + Math.floor(f * 2), f > 0.5 ? "#feae34" : "#fee761");
+  }
+  g.ring(X, 41, 9, 1.4, glow + "66");
+
+  g.ell(X, cy, rx + 1.4, ry + 1.4, shade);   // 柔和包边
+  g.ell(X, cy, rx, ry, base);
+  g.ell(X - 4, cy - 9, 2.5, 1.6, light);
+
+  /* 观察窗（脸） */
+  g.ell(X, cy - 3, 9, 6, OUTLINE);
+  g.ell(X, cy - 3, 8, 5, "#0a0e18");
+  drawEye(g, X - 4, cy - 3, eyeState, glow);
+  drawEye(g, X + 4, cy - 3, eyeState, glow);
+
+  drawPattern(g, X, cy + 3, rx - 2, ry - 7, "ell", light, shade, now);
+
+  /* 侧指示灯：亲密度满时闪（这里随开心动画闪） */
+  if (card.anim === "happy" || Math.floor(now / 1600) % 4 === 0) {
+    g.px(X + rx - 2, cy + 8, "#63c74d"); g.px(X - rx + 2, cy + 8, "#e43b44");
+  }
+  drawAntenna(g, X, cy - ry + 2, glow, now);
+}
+
+/* 3. 晶体核：菱形 + 折面 + 内核 */
+function drawCrystal(g, e) {
+  const { X, dy, base, shade, light, glow, eyeState, now } = e;
+  const cy = 23 + dy;
+  const spin = Math.abs(Math.sin(now / 1000 * 1.6));
+  const a = 8 + 5 * spin, b = 14 - 4 * spin;  // 旋转错觉：横竖半轴互补脉动
+
+  g.ell(X, 43, 7, 2, base + "2e");
+  g.ring(X, cy + b + 3, 6, 1.2, glow + "55");
+
+  g.diamond(X, cy, a + 1.2, b + 1.2, shade);
+  g.diamond(X, cy, a, b, base);
+  g.diamond(X - a * 0.28, cy - b * 0.3, a * 0.5, b * 0.42, light);  // 折面反光
+  g.rect(X - 1, cy - 1, 2, 2, "#ffffff");  // 内核
+
+  drawPattern(g, X, cy + b * 0.35, a * 0.75, b * 0.4, "diamond", glow, shade, now, a, b);
+
+  drawEye(g, X - a * 0.42, cy - 2, eyeState, glow);
+  drawEye(g, X + a * 0.42, cy - 2, eyeState, glow);
+  drawAntenna(g, X, cy - b + 1, glow, now);
+}
+
+/* 花纹（裁剪在身体内） */
+function drawPattern(g, cx, cy, rx, ry, shape, light, shade, now, da, db) {
+  const inside = (x, y) => shape === "ell" ? g.inEll(cx, cy, rx, ry, x, y)
+                        : shape === "diamond" ? g.inDiamond(cx, cy, da ?? rx, db ?? ry, x, y) : false;
+  if (gene.pattern === "belly") {  // 电路纹
+    const y0 = Math.round(cy + ry * 0.45);
+    for (let x = Math.round(cx - rx * 0.7); x <= Math.round(cx - rx * 0.15); x++) if (inside(x, y0)) g.px(x, y0, light);
+    for (let y = y0 - 2; y <= y0; y++) if (inside(Math.round(cx - rx * 0.15), y)) g.px(Math.round(cx - rx * 0.15), y, light);
+    g.rect(Math.round(cx - rx * 0.78), y0 - 1, 2, 2, light);
+    for (let x = Math.round(cx + rx * 0.2); x <= Math.round(cx + rx * 0.65); x++) if (inside(x, y0 - 2)) g.px(x, y0 - 2, light);
+    g.rect(Math.round(cx + rx * 0.6), y0 - 3, 2, 2, light);
+  } else if (gene.pattern === "stripes") {  // 数据流：体内二进制雨
+    const shift = Math.floor(now / 180);
+    for (const col of [cx - rx * 0.45, cx + rx * 0.3])
+      for (let y = Math.floor(cy - ry * 0.6); y <= Math.ceil(cy + ry * 0.6); y++)
+        if (((y + shift) % 5) < 2 && inside(col, y)) g.px(col, y, light);
+  } else if (gene.pattern === "spots") {
+    for (const [sx, sy] of [[-0.4,-0.3],[0.35,0.15],[-0.05,0.5]])
+      if (inside(cx + sx * rx, cy + sy * ry)) g.rect(cx + sx * rx - 1, cy + sy * ry, 2, 2, light);
+  }
+}
+
+/* ---------------- 特效后处理 ---------------- */
+/* glitch：横向切片错位 + 杂色 */
+function applyGlitch(grid) {
+  const n = 1 + Math.floor(Math.random() * 2);
+  for (let k = 0; k < n; k++) {
+    const y = 6 + Math.floor(Math.random() * (grid.s - 16));
+    const h = 1 + Math.floor(Math.random() * 3);
+    const off = Math.floor(Math.random() * 7) - 3;
+    if (!off) continue;
+    for (let yy = y; yy < y + h; yy++) {
+      const row = grid.d.slice(yy * grid.s, (yy + 1) * grid.s);
+      for (let x = 0; x < grid.s; x++) {
+        const src = row[(x - off + grid.s) % grid.s];
+        const r = Math.random();
+        grid.d[yy * grid.s + x] = r > 0.15 ? src : (r > 0.07 ? "#ff0044" : "#2ce8f5");
       }
-      g.px(e, eY - 2, shade);
-    } else if (gene.ears === "round") {
-      g.ell(e, eY - 2, 2.6, 2.6, outline); g.ell(e, eY - 2, 1.8, 1.8, base);
-      g.px(e, eY - 2, shade);
-    } else if (gene.ears === "droopy") {
-      g.ell(e, eY + 2, 2, 3, outline); g.ell(e, eY + 2, 1.2, 2.2, base);
-    } else {
-      g.rect(e, eY - 4, 1, 4, outline); g.px(e, eY - 5, light);
     }
   }
-  /* 尾巴 */
-  g.ell(X + rx + 1, cy + 2, 2.2, 2.2, outline); g.ell(X + rx + 1, cy + 2, 1.4, 1.4, base);
-
-  /* 身体：描边 + 底色 + 高光 */
-  g.ell(X, cy, rx + 1, ry + 1, outline);
-  g.ell(X, cy, rx, ry, base);
-  g.ell(X - 3.5, cy - 3.5, 1.8, 1.2, light);
-
-  /* 花纹（裁剪在身体内） */
-  if (gene.pattern === "belly") g.ell(X, cy + 4, 5, 3.4, light);
-  else if (gene.pattern === "stripes")
-    for (const sy of [cy + 2, cy + 5])
-      for (let x = X - rx; x <= X + rx; x++) if (g.inEll(X, cy, rx - 1, ry - 1, x, sy)) g.px(x, sy, shade);
-  else if (gene.pattern === "spots")
-    for (const [sx, sy] of [[-4,-1],[3,1],[-1,4]]) g.ell(X + sx, cy + sy, 1.2, 1.2, light);
-
-  /* 脚 */
-  const stepPh = card.anim === "walk" ? Math.floor(now / 125) % 2 : 0;
-  g.ell(X - 4, 27.5 + (stepPh ? -1 : 0), 2, 1.2, shade);
-  g.ell(X + 4, 27.5 + (stepPh ? 0 : -1), 2, 1.2, shade);
-
-  /* 眼睛 */
-  const eyeY = cy - 1;
-  for (const s of [-1, 1]) {
-    const x = X + s * 3;
-    if (eyeState === "closed" || eyeState === "blink") g.rect(x - 1, eyeY + 1, 2, 1, eyeC);
-    else if (eyeState === "happy") { g.px(x - 1, eyeY + 1, eyeC); g.px(x, eyeY, eyeC); g.px(x + 1, eyeY + 1, eyeC); }
-    else if (eyeState === "annoyed") {
-      if (s < 0) { g.px(x - 1, eyeY, eyeC); g.px(x, eyeY + 1, eyeC); }
-      else { g.px(x, eyeY + 1, eyeC); g.px(x + 1, eyeY, eyeC); }
+}
+/* 溶解/重组：按比例随机抹掉或恢复像素 */
+function dissolve(grid, frac, sparks, now) {
+  for (let i = 0; i < grid.d.length; i++) {
+    if (grid.d[i] && Math.random() < frac) {
+      if (sparks && Math.random() < 0.06)
+        sparks.push({ type: "bit", x: i % grid.s, y: Math.floor(i / grid.s), vx: (Math.random()-0.5)*30, vy: -10-Math.random()*20, life: 500, born: now, c: NEONS[Math.floor(Math.random()*4)] });
+      grid.d[i] = null;
     }
-    else if (eyeState === "dot") g.rect(x - 1, eyeY, 2, 2, eyeC);
-    else if (eyeState === "big") { g.rect(x - 1, eyeY - 1, 3, 3, eyeC); g.px(x - 1, eyeY - 1, light); }
-    else g.rect(x - 1, eyeY + 1, 3, 1, eyeC);
   }
-  g.px(X - 6, eyeY + 3, "#ef7d57"); g.px(X + 6, eyeY + 3, "#ef7d57"); // 腮红
-
-  /* 嘴 */
-  const my = cy + 3;
-  const mouthOpen = card.anim === "eat" ? Math.sin((now - card.t0)/1000 * Math.PI * 6) > 0
-                  : card.anim === "happy";
-  if (mouthOpen) { g.rect(X - 1, my, 2, 2, "#5d275d"); }
-  else if (card.anim === "sleep") g.rect(X - 1, my, 2, 1, eyeC);
-  else { g.px(X - 1, my, eyeC); g.px(X + 1, my, eyeC); g.px(X, my + 1, eyeC); }
-
-  if (card.anim === "eat") drawBerry(g, X + 8, cy + 1, 2, outline);
 }
 
-/* ============ B · 现代软萌 48×48 Endesga-32 柔和无黑边 ============ */
-function drawB(g, card, now) {
-  const [base, shade, light] = COLS.B[gene.color];
-  const eyeC = "#262b44", blushC = "#f6757a", innerEar = "#f6757a", mouthC = "#733e39";
-  const cx = 24;
-  let rx = 15, ry = 14, dy = 0, dx = 0;
-  const eyeState = resolveEyes(card, now);
-
-  const br = Math.sin(now / 1000 * Math.PI * 1.2);
-  if (card.anim === "happy") dy = -Math.round(Math.abs(Math.sin((now - card.t0)/1000 * Math.PI * 2.5)) * 4) - Math.round(br);
-  else if (card.anim !== "sleep") dy = -Math.round(br);
-  if (card.anim === "walk") {
-    const ph = now / 1000;
-    dx = Math.sin(ph * 2.0) * 8;
-  }
-  if (card.anim === "sleep") { rx = 17.5; ry = 10.5; }
-
-  const bottom = 41, cy = bottom - ry + dy, X = cx + dx;
-  g.ell(X, 45, rx - 2, 2, "#00000044");
-
-  const eY = cy - ry + 2;
-  const ex = [X - 8, X + 8];
-  for (const e of ex) {
-    if (gene.ears === "pointy") {
-      for (let i = 0; i < 7; i++) {
-        const w = i + 2;
-        g.rect(e - Math.floor((w + 3) / 2), eY - 7 + i, w + 3, 1, shade);
-        g.rect(e - Math.floor(w / 2), eY - 7 + i, w, 1, base);
-      }
-      g.rect(e - 1, eY - 3, 2, 3, innerEar);
-    } else if (gene.ears === "round") {
-      g.ell(e, eY - 3, 4.5, 4.5, shade); g.ell(e, eY - 3, 3.5, 3.5, base);
-      g.ell(e, eY - 3, 1.8, 1.8, innerEar);
-    } else if (gene.ears === "droopy") {
-      g.ell(e, eY + 3, 3.5, 5, shade); g.ell(e, eY + 3, 2.6, 4, base);
-      g.ell(e, eY + 3, 1.2, 2, innerEar);
-    } else {
-      g.rect(e, eY - 6, 1.5, 6, shade); g.ell(e, eY - 7, 1.8, 1.8, light);
-    }
-  }
-  g.ell(X + rx + 2, cy + 3, 4, 4, shade); g.ell(X + rx + 2, cy + 3, 3, 3, base);
-
-  /* 身体：柔和的 shade 环替代黑描边 */
-  g.ell(X, cy, rx + 1.4, ry + 1.4, shade);
-  g.ell(X, cy, rx, ry, base);
-  g.ell(X - 6.5, cy - 6, 2.2, 1.5, light);
-
-  if (gene.pattern === "belly") g.ell(X, cy + 7, 8, 5.5, light);
-  else if (gene.pattern === "stripes")
-    for (const sy of [cy + 3, cy + 8])
-      for (let x = X - rx; x <= X + rx; x++) if (g.inEll(X, cy, rx - 1.5, ry - 1.5, x, sy)) { g.px(x, sy, shade); g.px(x, sy + 1, shade); }
-  else if (gene.pattern === "spots")
-    for (const [sx, sy] of [[-7,-2],[5,2],[-1,7]]) g.ell(X + sx, cy + sy, 2, 2, light);
-
-  const stepPh = card.anim === "walk" ? Math.floor(now / 140) % 2 : 0;
-  g.ell(X - 6, 42 + (stepPh ? -1 : 0), 3.5, 2, shade);
-  g.ell(X + 6, 42 + (stepPh ? 0 : -1), 3.5, 2, shade);
-
-  /* 眼睛（大而亮） */
-  const eyeY = cy - 1;
-  for (const s of [-1, 1]) {
-    const x = X + s * 6;
-    if (eyeState === "closed" || eyeState === "blink") g.rect(x - 2, eyeY + 1, 4, 1, eyeC);
-    else if (eyeState === "happy") { g.px(x - 2, eyeY + 1, eyeC); g.px(x - 1, eyeY, eyeC); g.px(x, eyeY, eyeC); g.px(x + 1, eyeY + 1, eyeC); }
-    else if (eyeState === "annoyed") {
-      if (s < 0) { g.px(x - 1, eyeY, eyeC); g.px(x, eyeY + 1, eyeC); g.px(x + 1, eyeY + 1, eyeC); }
-      else { g.px(x - 1, eyeY + 1, eyeC); g.px(x, eyeY + 1, eyeC); g.px(x + 1, eyeY, eyeC); }
-    }
-    else if (eyeState === "dot") g.rect(x - 1, eyeY, 2, 3, eyeC);
-    else if (eyeState === "big") {
-      g.rect(x - 2, eyeY - 2, 4, 4, eyeC); g.rect(x - 1, eyeY + 2, 2, 1, eyeC);
-      g.px(x - 1, eyeY - 1, "#ffffff"); g.px(x, eyeY, "#ffffff");
-    }
-    else g.rect(x - 2, eyeY, 4, 1, eyeC);
-  }
-  g.rect(X - 11, eyeY + 4, 3, 2, blushC); g.rect(X + 9, eyeY + 4, 3, 2, blushC);
-
-  const my = cy + 5;
-  const mouthOpen = card.anim === "eat" ? Math.sin((now - card.t0)/1000 * Math.PI * 6) > 0
-                  : card.anim === "happy";
-  if (mouthOpen) { g.rect(X - 2, my, 4, 3, mouthC); g.rect(X - 1, my + 2, 2, 1, "#f6757a"); }
-  else if (card.anim === "sleep") g.rect(X - 1, my, 2, 1, mouthC);
-  else { g.px(X - 1, my, mouthC); g.px(X, my + 1, mouthC); g.px(X + 1, my, mouthC); }
-
-  if (card.anim === "eat") drawBerry(g, X + 12, cy + 3, 3, mouthC);
-}
-
-/* ============ C · 极简豆豆 16×16 PICO-8 ============ */
-function drawC(g, card, now) {
-  const [base, shade, light] = COLS.C[gene.color];
-  const outline = "#1D2B53", eyeC = "#1D2B53";
-  const cx = 8;
-  let rx = 5, ry = 5, dy = 0, dx = 0;
-  const eyeState = resolveEyes(card, now);
-
-  if (card.anim === "happy") dy = -Math.round(Math.abs(Math.sin((now - card.t0)/1000 * Math.PI * 2.5)) * 2);
-  if (card.anim === "walk") {
-    const ph = now / 1000;
-    dx = Math.sin(ph * 2.2) * 3;
-    dy = (Math.sin(ph * 8.8) > 0) ? -1 : 0;
-  }
-  if (card.anim === "sleep") { rx = 6; ry = 4; }
-
-  const bottom = 11, cy = bottom - ry + dy, X = cx + dx;
-  g.ell(X, 13, 4, 1, "#00000055");
-
-  const eY = cy - ry + 1;
-  const ex = [X - 2, X + 2];
-  for (const e of ex) {
-    if (gene.ears === "pointy") { g.px(e, eY - 2, base); g.px(e, eY - 1, base); }
-    else if (gene.ears === "round") { g.px(e, eY - 1, base); }
-    else if (gene.ears === "droopy") { g.px(e + (e < X ? -1 : 1), eY, shade); g.px(e + (e < X ? -1 : 1), eY + 1, shade); }
-    else { g.px(e, eY - 1, shade); g.px(e, eY - 2, shade); g.px(e, eY - 3, light); }
-  }
-
-  g.ell(X, cy, rx + 0.9, ry + 0.9, outline);
-  g.ell(X, cy, rx, ry, base);
-  g.px(X - 2, cy - 2, light);
-
-  if (gene.pattern === "belly") g.ell(X, cy + 2, 3, 2, light);
-  else if (gene.pattern === "stripes")
-    for (const sy of [cy + 1, cy + 3])
-      for (let x = X - rx; x <= X + rx; x++) if (g.inEll(X, cy, rx - 1, ry - 1, x, sy)) g.px(x, sy, shade);
-  else if (gene.pattern === "spots") { g.px(X - 3, cy - 1, light); g.px(X + 2, cy + 1, light); }
-
-  if (card.anim !== "sleep") {
-    const lift = card.anim === "walk" ? Math.floor(now / 125) % 2 : 0;
-    g.px(X - 3, 12 - (lift ? 1 : 0), shade);
-    g.px(X + 3, 12 - (lift ? 0 : 1), shade);
-  }
-
-  const eyeY = cy;
-  for (const s of [-1, 1]) {
-    const x = X + s * 2;
-    if (eyeState === "closed" || eyeState === "blink") { g.px(x, eyeY + 1, eyeC); g.px(x + (s < 0 ? 1 : -1), eyeY + 1, eyeC); }
-    else if (eyeState === "happy") { g.px(x - 1, eyeY + 1, eyeC); g.px(x, eyeY, eyeC); g.px(x + 1, eyeY + 1, eyeC); }
-    else if (eyeState === "annoyed") {
-      if (s < 0) { g.px(x, eyeY, eyeC); g.px(x + 1, eyeY + 1, eyeC); }
-      else { g.px(x, eyeY + 1, eyeC); g.px(x + 1, eyeY, eyeC); }
-    }
-    else if (eyeState === "dot") g.px(x, eyeY, eyeC);
-    else if (eyeState === "big") { g.px(x, eyeY, eyeC); g.px(x, eyeY + 1, eyeC); g.px(x, eyeY - 1, light); }
-    else { g.px(x - 1, eyeY + 1, eyeC); g.px(x, eyeY + 1, eyeC); }
-  }
-  g.px(X - 4, eyeY + 2, "#FF77A8"); g.px(X + 4, eyeY + 2, "#FF77A8");
-
-  const my = cy + 2;
-  const mouthOpen = card.anim === "eat" ? Math.sin((now - card.t0)/1000 * Math.PI * 6) > 0
-                  : card.anim === "happy";
-  if (mouthOpen) { g.px(X, my, "#7E2553"); g.px(X, my + 1, "#7E2553"); }
-  else if (card.anim !== "sleep") g.px(X, my, shade);
-
-  if (card.anim === "eat") drawBerry(g, X + 5, cy, 1, "#1D2B53");
-}
-
-/* ---------------- 风格定义与卡片 ---------------- */
-const STYLES = [
-  { id: "A", title: "A · 复古掌机", desc: "32×32 · Sweetie-16 · 黑描边 · GBA 世代血统", draw: drawA, size: 32, disp: 256, strip: 64, palette: "sweetie" },
-  { id: "B", title: "B · 现代软萌", desc: "48×48 · Endesga-32 · 柔和渐层 · Chiikawa 气质", draw: drawB, size: 48, disp: 240, strip: 96, palette: "endesga" },
-  { id: "C", title: "C · 极简豆豆", desc: "16×16 · PICO-8 · 豆豆眼 · 表情包浓度最高", draw: drawC, size: 16, disp: 192, strip: 32, palette: "pico8" }
+/* ---------------- 卡片与状态 ---------------- */
+const SPECIES = [
+  { id: "ghost",   title: "数据幽灵", desc: "悬浮 · 波浪裙摆 · 丧萌神秘", draw: drawGhost },
+  { id: "pod",     title: "悬浮豆荚", desc: "观察窗 · 尾焰 · 太空舱机灵", draw: drawPod },
+  { id: "crystal", title: "晶体核",   desc: "菱形旋转 · 折面 · 冷酷稀有感", draw: drawCrystal }
 ];
-const ANIMS = [["idle","待机"],["happy","开心"],["eat","吃饭"],["sleep","睡觉"],["walk","散步"]];
+const ANIMS = [["idle","待机"],["happy","开心"],["eat","进食"],["sleep","休眠"],["walk","闪现"],["upg","升级"]];
 
 const cards = [];
 const container = document.getElementById("cards");
-for (const st of STYLES) {
+SPECIES.forEach((sp, idx) => {
   const card = {
-    st, anim: "idle", t0: 0, blinkUntil: 0, nextBlink: performance.now() + 2000 + Math.random() * 2000,
-    nextZ: 0, nextCrumb: 0, particles: [],
-    grid: new Grid(st.size)
+    sp, idx, anim: "idle", t0: 0, blinkUntil: 0,
+    nextBlink: performance.now() + 2000 + Math.random() * 2000,
+    nextGlitch: 0, glitchUntil: 0,
+    nextZ: 0, nextSpark: 0,
+    x: 0,                          // 当前绘制中心偏移
+    tp: null, nextTp: 0,           // 瞬移状态
+    particles: [],
+    grid: new Grid(48)
   };
   const el = document.createElement("div");
   el.className = "card";
   el.innerHTML = `
-    <h2>${st.title}</h2>
-    <div class="desc">${st.desc}</div>
-    <div class="stage" style="width:${st.disp + 24}px; height:${st.disp + 24}px;">
-      <canvas width="${st.size}" height="${st.size}" style="width:${st.disp}px; height:${st.disp}px;"></canvas>
+    <h2>${sp.title}</h2>
+    <div class="desc">${sp.desc} · 48×48 · Endesga-32</div>
+    <div class="stage" style="width:264px; height:264px;">
+      <canvas width="48" height="48" style="width:240px; height:240px;"></canvas>
     </div>
-    <div class="swatches">${PALETTES[st.palette].map(c => `<div class="sw" style="background:${c}"></div>`).join("")}</div>
+    <div class="swatches">${COLS.map(c => `<div class="sw" style="background:${c[0]}"></div>`).join("")}</div>
     <div class="btns">${ANIMS.map(([k, n]) => `<button data-anim="${k}">${n}</button>`).join("")}</div>
     <div class="strip">
-      <canvas width="${st.size}" height="${st.size}" style="width:${st.strip}px; height:${st.strip}px;"></canvas>
-      <span class="lab">↑ 实际像素密度 ×${st.strip / st.size}<br>屏幕上建议整数倍放大</span>
+      <canvas width="48" height="48" style="width:96px; height:96px;"></canvas>
+      <span class="lab">↑ 实际像素密度 ×2<br>1.43" 圆屏 466px 上可放大 ×8</span>
     </div>`;
   container.appendChild(el);
   card.canvas = el.querySelectorAll("canvas")[0];
@@ -488,13 +430,15 @@ for (const st of STYLES) {
   card.btns.forEach(b => b.onclick = () => setAnim(card, b.dataset.anim, performance.now()));
   el.querySelector(".stage").onclick = () => petCard(card, performance.now());
   cards.push(card);
-}
+});
 
 function setAnim(card, anim, now) {
-  card.anim = anim; card.t0 = now;
+  card.anim = anim; card.t0 = now; card.tp = null;
   if (anim === "happy") spawnHearts(card, 3);
   if (anim === "sleep") card.nextZ = now + 600;
-  if (anim === "eat") card.nextCrumb = now + 400;
+  if (anim === "eat") card.nextSpark = now + 500;
+  if (anim === "walk") { card.nextTp = now; }
+  if (anim === "upg") card.upgDone = false;
 }
 function petCard(card, now) {
   if (card.anim === "sleep") { card.anim = "annoyed"; card.t0 = now; }
@@ -503,9 +447,9 @@ function petCard(card, now) {
 function spawnHearts(card, n) {
   for (let i = 0; i < n; i++)
     card.particles.push({
-      type: "heart", x: card.st.size/2 + (Math.random()*10 - 5),
-      y: card.st.size*0.25 - Math.random()*4, vy: -14 - Math.random()*8,
-      life: 900 + Math.random()*300, born: performance.now() + i*120
+      type: "heart", x: 24 + (Math.random() * 14 - 7) + card.x,
+      y: 12 - Math.random() * 4, vy: -16 - Math.random() * 8,
+      life: 900 + Math.random() * 300, born: performance.now() + i * 120
     });
 }
 
@@ -519,44 +463,138 @@ function tick(now) {
     /* 自动回归待机 */
     if ((card.anim === "happy" && now - card.t0 > 1800) ||
         (card.anim === "eat" && now - card.t0 > 2800) ||
-        (card.anim === "annoyed" && now - card.t0 > 900)) {
+        (card.anim === "annoyed" && now - card.t0 > 900) ||
+        (card.anim === "upg" && now - card.t0 > 2800)) {
+      if (card.anim === "upg" && !card.upgDone) {  // 升级完成结算
+        card.upgDone = true; petVersion++; updateGeneInfo();
+        for (let i = 0; i < 14; i++)
+          card.particles.push({ type: "bit", x: 24 + card.x, y: 20, vx: (Math.random()-0.5)*70, vy: -30-Math.random()*40, life: 700, born: now, c: NEONS[Math.floor(Math.random()*4)] });
+      }
       card.anim = "idle"; card.t0 = now;
     }
+
     /* 眨眼 */
-    if (card.anim === "idle" || card.anim === "walk") {
+    if (card.anim === "idle") {
       if (now > card.nextBlink) { card.blinkUntil = now + 140; card.nextBlink = now + 2200 + Math.random() * 2600; }
     }
-    /* 睡觉的 Zzz */
+    /* glitch 调度 */
+    if (card.anim !== "sleep" && card.anim !== "upg") {
+      if (!card.glitchUntil && now > card.nextGlitch) card.glitchUntil = now + 120 + Math.random() * 80;
+      if (card.glitchUntil && now > card.glitchUntil) {
+        card.glitchUntil = 0;
+        const [a, b] = GLITCH_MS[gene.glitch];
+        card.nextGlitch = now + a + Math.random() * (b - a);
+      }
+    }
+    /* 休眠 Zzz */
     if (card.anim === "sleep" && now > card.nextZ) {
-      card.nextZ = now + 750;
-      card.particles.push({ type: "z", x: card.st.size/2 + 6, y: card.st.size*0.28, vy: -8, life: 1300, born: now });
+      card.nextZ = now + 850;
+      card.particles.push({ type: "z", x: 24 + card.x + 8, y: 12, vy: -7, life: 1400, born: now });
     }
-    /* 吃饭掉渣 */
-    if (card.anim === "eat" && now > card.nextCrumb) {
-      card.nextCrumb = now + 380;
-      card.particles.push({ type: "crumb", x: card.st.size/2 + card.st.size*0.22, y: card.st.size*0.55, vy: 20, life: 500, born: now });
+    /* 进食火花 */
+    if (card.anim === "eat" && now > card.nextSpark) {
+      card.nextSpark = now + 320;
+      card.particles.push({ type: "bit", x: 24 + card.x + 6, y: 22, vx: 10 + Math.random() * 20, vy: -8 - Math.random() * 12, life: 450, born: now, c: "#fee761" });
     }
+
+    /* --- 瞬移状态机 --- */
+    let dissolving = 0;   // >0 表示正在溶解/重组
+    if (card.anim === "walk") {
+      if (!card.tp && now > card.nextTp) {
+        const target = (card.x >= 0 ? -1 : 1) * (4 + Math.floor(Math.random() * 7));
+        card.tp = { t0: now, from: card.x, to: target };
+      }
+      if (card.tp) {
+        const t = now - card.tp.t0;
+        if (t < 250) { dissolving = t / 250; card.x = card.tp.from; }
+        else if (t < 560) {
+          card.x = card.tp.to; dissolving = -1;  // -1 = 完全消失，画 spinner
+          if (!card.tp.sparked) {
+            card.tp.sparked = true;
+            for (let i = 0; i < 5; i++)
+              card.particles.push({ type: "bit", x: 24 + card.tp.from, y: 22, vx: (Math.random()-0.5)*40, vy: -10-Math.random()*20, life: 500, born: now, c: NEONS[Math.floor(Math.random()*4)] });
+          }
+        }
+        else if (t < 810) dissolving = 1 - (t - 560) / 250, card.x = card.tp.to;
+        else { card.x = card.tp.to; card.tp = null; card.nextTp = now + 900 + Math.random() * 700; }
+      }
+    } else card.x = card.x * 0.98;  // 缓慢回中
+
     /* 粒子 */
     card.particles = card.particles.filter(p => now - p.born < p.life && now >= p.born);
-    for (const p of card.particles) p.y += p.vy * dt;
+    for (const p of card.particles) {
+      p.y += p.vy * dt;
+      if (p.type === "bit") { p.x += p.vx * dt; p.vy += 60 * dt; }
+    }
 
-    /* 绘制 */
-    card.grid.d.fill(null);
-    card.st.draw(card.grid, card, now);
+    /* --- 绘制 --- */
+    const g = card.grid;
+    g.d.fill(null);
+    /* 背景：扫描线 + 星尘 */
+    for (let y = 0; y < 48; y++) g.rect(0, y, 48, 1, y % 2 ? "#0a0d14" : "#0d1119");
+    const stars = [[5,7],[38,4],[12,15],[42,20],[7,28],[35,33],[17,3],[27,8]];
+    for (const [sx, sy] of stars) g.px(sx, sy, "#1c2432");
+
+    const col = COLS[gene.color];
+    const dim = card.anim === "sleep";
+    const env = {
+      X: 24 + card.x,
+      dy: dim ? Math.round(Math.sin(now / 1000 * 1.1) * 1)
+              : Math.round(Math.sin(now / 1000 * 2.4 + card.idx) * 1.5)
+                - (card.anim === "happy" ? Math.round(Math.abs(Math.sin((now - card.t0) / 1000 * Math.PI * 2.5)) * 4) : 0),
+      base: dim ? col[1] : col[0],
+      shade: dim ? OUTLINE : col[1],
+      light: dim ? col[0] : col[2],
+      glow: col[0],
+      eyeState: resolveEyes(card, now),
+      dim, animNow: card.anim, now, card
+    };
+    if (!(card.tp && dissolving === -1)) {
+      card.sp.draw(g, env);
+      /* 进食：数据豆飞向核心被吸收 */
+      if (card.anim === "eat") {
+        const t = Math.min((now - card.t0) / 1500, 1);
+        const bx = env.X + 10 * (1 - t), by = 20;
+        drawDataBean(g, bx, by, t > 0.75 ? 1 : t > 0.4 ? 2 : 3);
+        if (t >= 1) g.ring(env.X, 22, 3 + ((now - card.t0 - 1500) / 90), 2, col[0] + "77");
+      }
+      /* 升级：暗屏 + 进度条 + 抖动 */
+      if (card.anim === "upg") {
+        const t = Math.min((now - card.t0) / 2400, 1);
+        g.rect(9, 39, 30, 6, OUTLINE);
+        g.rect(11, 41, 26, 2, DARK);
+        g.rect(11, 41, Math.round(t * 26), 2, "#2ce8f5");
+        if (Math.random() < 0.3) applyGlitch(g);
+      }
+    } else {
+      /* 完全消失：画目标点 spinner */
+      const ang = now / 120;
+      for (let i = 0; i < 3; i++)
+        g.px(24 + card.x + Math.cos(ang + i * 2.09) * 4, 22 + Math.sin(ang + i * 2.09) * 3, col[0]);
+    }
+
+    /* 溶解/重组后处理 */
+    if (dissolving > 0) dissolve(g, dissolving, card.particles, now);
+
+    /* 粒子绘制 */
     for (const p of card.particles) {
       const t = (now - p.born) / p.life;
       if (t < 0) continue;
-      const col = p.type === "heart" ? "#FF77A8" : p.type === "z" ? "#C2C3C7" : "#ef7d57";
       if (p.type === "heart") {
-        const rows = card.st.size >= 32 ? ["01010","11111","01110","00100"] : ["010","111","010"];
-        card.grid.stamp(rows, p.x, p.y, col + (t > 0.6 ? "88" : ""), card.st.size >= 48 ? 2 : 1);
+        const rows = ["01010","11111","01110","00100"];
+        g.stamp(rows, p.x, p.y, "#f6757a" + (t > 0.6 ? "88" : ""), 1);
       } else if (p.type === "z") {
-        card.grid.stamp(["111","010","111"], p.x + t * 6, p.y, col, card.st.size >= 48 ? 2 : 1);
-      } else card.grid.px(p.x, p.y, col);
+        g.stamp(["111","010","111"], p.x + t * 6, p.y, "#8b9bb4", 1);
+      } else if (p.type === "bit") {
+        g.px(p.x, p.y, p.c);
+      }
     }
-    renderGrid(card.grid, card.canvas);
-    renderGrid(card.grid, card.stripCanvas);
-    /* 按钮状态 */
+
+    /* glitch 后处理 */
+    if (card.glitchUntil && now < card.glitchUntil) applyGlitch(g);
+
+    renderGrid(g, card.canvas);
+    renderGrid(g, card.stripCanvas);
     for (const b of card.btns) b.classList.toggle("on", b.dataset.anim === card.anim);
   }
   requestAnimationFrame(tick);
