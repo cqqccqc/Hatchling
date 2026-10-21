@@ -113,8 +113,75 @@ public final class PetScene: SKScene {
             .setTexture(closed), .wait(forDuration: 0.14), .setTexture(open),
         ]))
         eyeNode.run(blink)
+
+        // glitch 基因表达：频率 low 9s / mid 5.5s / high 2.5s 随机信号抖动
+        let glitchBase: [TimeInterval] = [9, 5.5, 2.5]
+        let glitchWait = glitchBase[min(gene.glitch.express.rawValue == "high" ? 2 : gene.glitch.express.rawValue == "mid" ? 1 : 0, 2)]
+        let jitter = SKAction.sequence([
+            .wait(forDuration: glitchWait, withRange: glitchWait * 0.4),
+            .moveBy(x: 1.6, y: 0, duration: 0.05),
+            .moveBy(x: -2.4, y: 0, duration: 0.05),
+            .moveBy(x: 0.8, y: 0, duration: 0.05),
+            .moveTo(x: 24, duration: 0.05),
+        ])
+        petNode.run(.repeatForever(jitter), withKey: "glitch")
     }
 
     @available(*, unavailable)
     required init?(coder: NSCoder) { fatalError("not supported") }
+
+    // MARK: - 交互反应（摸头 happy / 心粒子）
+
+    /// 摸头反应：happy 眼 + 蹦跳 + 心粒子上浮
+    public func playHappy() {
+        eyeNode.texture = Atlas.eyes(.happy, gene.color.express)
+        let hop = SKAction.sequence([
+            .moveBy(x: 0, y: 4, duration: 0.18),
+            .moveBy(x: 0, y: -4, duration: 0.18),
+            .moveBy(x: 0, y: 2.5, duration: 0.14),
+            .moveBy(x: 0, y: -2.5, duration: 0.14),
+        ])
+        petNode.run(hop, withKey: "moodHop")
+        spawnHearts()
+        // 恢复 dot 眼
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { [weak self] in
+            self?.eyeNode.texture = Atlas.eyes(.dot, self?.gene.color.express ?? .cyan)
+        }
+    }
+
+    /// 嫌弃反应（喂到讨厌的豆等）
+    public func playAnnoyed() {
+        eyeNode.texture = Atlas.eyes(.annoyed, gene.color.express)
+        let shake = SKAction.sequence([
+            .moveBy(x: -1.5, y: 0, duration: 0.06),
+            .moveBy(x: 1.5, y: 0, duration: 0.06),
+            .moveBy(x: -1, y: 0, duration: 0.06),
+            .moveTo(x: 24, duration: 0.06),
+        ])
+        petNode.run(shake, withKey: "moodShake")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) { [weak self] in
+            self?.eyeNode.texture = Atlas.eyes(.dot, self?.gene.color.express ?? .cyan)
+        }
+    }
+
+    /// 像素心粒子上浮（❤️ 5×4 stamp）
+    private func spawnHearts() {
+        var heart = PixelGrid(size: 5)
+        heart.stamp(["01010", "11111", "01110", "00100"], 0, 0, Pixel(hex: 0xf6757a))
+        guard let img = heart.makeCGImage() else { return }
+        let tex = SKTexture(cgImage: img)
+        tex.filteringMode = .nearest
+        for i in 0..<3 {
+            let node = SKSpriteNode(texture: tex)
+            node.size = CGSize(width: 5, height: 4)
+            node.position = CGPoint(x: 24 + CGFloat(i * 6 - 6), y: 30)
+            node.alpha = 0
+            addChild(node)
+            let rise = SKAction.group([
+                .moveBy(x: CGFloat(i * 3 - 3), y: 12, duration: 0.9),
+                .sequence([.fadeAlpha(to: 1, duration: 0.15), .fadeAlpha(to: 0, duration: 0.6)]),
+            ])
+            node.run(.sequence([.wait(forDuration: Double(i) * 0.18), rise, .removeFromParent()]))
+        }
+    }
 }

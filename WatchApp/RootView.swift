@@ -21,6 +21,8 @@ struct RootView: View {
     @State private var ceremony: FusionCeremonyData?
     @State private var pendingFusion: PendingFusion?
     @State private var releaseCandidate: Pet?
+    @State private var moodPulse = 0
+    @State private var annoyPulse = 0
     // M5 演示加速（正式版：config.fuseGateHours / fatigueHours）
     private let demoFuseGateSeconds: TimeInterval = 10
     private let demoCooldownSeconds: TimeInterval = 30
@@ -58,6 +60,8 @@ struct RootView: View {
                         CurrentPetCard(pet: pet, now: now,
                                        taskInterval: taskInterval,
                                        stepsToday: stepsToday,
+                                       moodPulse: moodPulse,
+                                       annoyPulse: annoyPulse,
                                        pendingTier: pendingTier[pet.id],
                                        onHatch: { hatch(pet) },
                                        onCollect: { collect(pet) })
@@ -122,11 +126,12 @@ struct RootView: View {
             if pets.isEmpty, args.contains("-demoAutospawn") {
                 spawnEgg()
             }
-            // -demoHome：直接一只活体宠物（测试/截图用）
+            // -demoHome：直接一只活体宠物（测试/截图用；今日已出发防自动派工）
             if pets.isEmpty, args.contains("-demoHome") {
                 let pet = Pet(name: ["零波", "咕噜", "噗啾"].randomElement()!,
                               gene: .random(), state: .home)
                 pet.birthAt = Date()
+                pet.lastTaskDate = Date()
                 ctx.insert(pet)
                 try? ctx.save()
             }
@@ -333,6 +338,7 @@ struct RootView: View {
     private func tapPet(_ pet: Pet) {
         guard pet.stateKind == .home else { return }
         pet.mood = min(100, pet.mood + 5)
+        moodPulse += 1
         ctx.insert(EventLog(type: .petted, petID: pet.id))
         try? ctx.save()
         showFeedback(["❤️"])
@@ -350,6 +356,7 @@ struct RootView: View {
         try? ctx.save()
         withAnimation { feedOpen = false }
         let dislike = !liked && Double.random(in: 0..<1) < 0.25
+        if dislike { annoyPulse += 1 }
         showFeedback(dislike ? ["🤢"] : ["😋", liked ? "💛" : ""])
         beep(880, 0.07)
         hapticPulse()
@@ -589,6 +596,8 @@ struct CurrentPetCard: View {
     let now: Date
     let taskInterval: TimeInterval
     var stepsToday: Int = 0
+    var moodPulse: Int = 0
+    var annoyPulse: Int = 0
     let pendingTier: TaskTier?
     let onHatch: () -> Void
     let onCollect: () -> Void
