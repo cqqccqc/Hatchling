@@ -10,19 +10,58 @@
 		1C8EF96A6FCAB8C00F905B99 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7476C6F66C26150B528985 /* RootView.swift */; };
 		4B1D9AAAC99CEB83EF30B0DF /* HatchlingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FA9B32C57B0DD408BE34C4 /* HatchlingApp.swift */; };
 		50ADA584B65F17FA9161C217 /* HatchlingKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2FF33077DCAB6ED078CCD214 /* HatchlingKit */; };
+		57618BFA91E769AFF78CAF9C /* HatchlingWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D84869EF1B900397B6042A /* HatchlingWidget.swift */; };
 		66FF77FD3D678075C4096463 /* PetSpriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB65585CE1FCA5013D2AFBD /* PetSpriteView.swift */; };
+		6A1A42E575C9CBBEBC729D60 /* HatchlingWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 809268A68DF083363B27094C /* HatchlingWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		A498E29509E7856E54230F50 /* HatchlingKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9ED3703E1183385B82031713 /* HatchlingKit */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		6D16538066D03EB49653177A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 04DBF49173E246ADC1A4C54A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AD27BCA919D1B1474ED3A929;
+			remoteInfo = HatchlingWidget;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		6BCE5924DA9051556C13CF8A /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				6A1A42E575C9CBBEBC729D60 /* HatchlingWidget.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		08FA9B32C57B0DD408BE34C4 /* HatchlingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HatchlingApp.swift; sourceTree = "<group>"; };
 		107AE95455F789722047AEAA /* Hatchling.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Hatchling.entitlements; sourceTree = "<group>"; };
 		14DCE590028E30B3314225F6 /* Hatchling.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hatchling.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2025CF7A0828F064B1E1C249 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		4AB65585CE1FCA5013D2AFBD /* PetSpriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetSpriteView.swift; sourceTree = "<group>"; };
 		59BAEE1BB94888CF39532041 /* HatchlingKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HatchlingKit; path = packages/HatchlingKit; sourceTree = SOURCE_ROOT; };
+		79846D58AA2244DCB6B35BCA /* Widget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Widget.entitlements; sourceTree = "<group>"; };
+		809268A68DF083363B27094C /* HatchlingWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = HatchlingWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		A4D84869EF1B900397B6042A /* HatchlingWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HatchlingWidget.swift; sourceTree = "<group>"; };
 		BC7476C6F66C26150B528985 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		7E1117AFD7B306F58905DAE6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A498E29509E7856E54230F50 /* HatchlingKit in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		92C1338CE36292E3312CBB54 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -39,6 +78,7 @@
 			children = (
 				8897DF497F5A58D4F6C9E8E3 /* Packages */,
 				91EFBE7D036413F584F6B901 /* WatchApp */,
+				8300B3ED926CA9D460CBACF6 /* Widget */,
 				4D4A4216B382D9C7D7E97E04 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -47,8 +87,19 @@
 			isa = PBXGroup;
 			children = (
 				14DCE590028E30B3314225F6 /* Hatchling.app */,
+				809268A68DF083363B27094C /* HatchlingWidget.appex */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		8300B3ED926CA9D460CBACF6 /* Widget */ = {
+			isa = PBXGroup;
+			children = (
+				A4D84869EF1B900397B6042A /* HatchlingWidget.swift */,
+				2025CF7A0828F064B1E1C249 /* Info.plist */,
+				79846D58AA2244DCB6B35BCA /* Widget.entitlements */,
+			);
+			path = Widget;
 			sourceTree = "<group>";
 		};
 		8897DF497F5A58D4F6C9E8E3 /* Packages */ = {
@@ -79,10 +130,12 @@
 			buildPhases = (
 				14410BF6CA03DFFE6B41BE70 /* Sources */,
 				92C1338CE36292E3312CBB54 /* Frameworks */,
+				6BCE5924DA9051556C13CF8A /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				6E3B2C81FA78B1DE65A9FE3A /* PBXTargetDependency */,
 			);
 			name = Hatchling;
 			packageProductDependencies = (
@@ -91,6 +144,25 @@
 			productName = Hatchling;
 			productReference = 14DCE590028E30B3314225F6 /* Hatchling.app */;
 			productType = "com.apple.product-type.application";
+		};
+		AD27BCA919D1B1474ED3A929 /* HatchlingWidget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8515C38F1E89AD2FF18CAECA /* Build configuration list for PBXNativeTarget "HatchlingWidget" */;
+			buildPhases = (
+				7B3EB1FFD6F14E4F4F7397D0 /* Sources */,
+				7E1117AFD7B306F58905DAE6 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HatchlingWidget;
+			packageProductDependencies = (
+				9ED3703E1183385B82031713 /* HatchlingKit */,
+			);
+			productName = HatchlingWidget;
+			productReference = 809268A68DF083363B27094C /* HatchlingWidget.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -121,6 +193,7 @@
 			projectRoot = "";
 			targets = (
 				822D89975D3363E9550DAAA5 /* Hatchling */,
+				AD27BCA919D1B1474ED3A929 /* HatchlingWidget */,
 			);
 		};
 /* End PBXProject section */
@@ -136,7 +209,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7B3EB1FFD6F14E4F4F7397D0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				57618BFA91E769AFF78CAF9C /* HatchlingWidget.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		6E3B2C81FA78B1DE65A9FE3A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AD27BCA919D1B1474ED3A929 /* HatchlingWidget */;
+			targetProxy = 6D16538066D03EB49653177A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		0E1787189410B11164A54774 /* Release */ = {
@@ -290,6 +379,44 @@
 			};
 			name = Release;
 		};
+		E102600C82EBEBD1BDAC93D8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Widget/Widget.entitlements;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Hatchling;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.hatchling.watch.widget;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+			};
+			name = Debug;
+		};
+		FA0E0A3D070DDB2132FDCE31 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Widget/Widget.entitlements;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Widget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Hatchling;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.hatchling.watch.widget;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -298,6 +425,15 @@
 			buildConfigurations = (
 				9BC392D685B64C57C385E129 /* Debug */,
 				0E1787189410B11164A54774 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		8515C38F1E89AD2FF18CAECA /* Build configuration list for PBXNativeTarget "HatchlingWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E102600C82EBEBD1BDAC93D8 /* Debug */,
+				FA0E0A3D070DDB2132FDCE31 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
@@ -322,6 +458,10 @@
 
 /* Begin XCSwiftPackageProductDependency section */
 		2FF33077DCAB6ED078CCD214 /* HatchlingKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = HatchlingKit;
+		};
+		9ED3703E1183385B82031713 /* HatchlingKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = HatchlingKit;
 		};

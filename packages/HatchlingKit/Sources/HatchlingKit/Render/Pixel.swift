@@ -134,3 +134,18 @@ public struct PixelGrid: Sendable {
         }
     }
 }
+
+#if canImport(SwiftUI)
+import SwiftUI
+
+public extension Color {
+    /// 项目色板 hex 快捷构造（0xRRGGBB）
+    init(hex: UInt) {
+        self.init(Color.RGBColorSpace.sRGB,
+                  red: Double((hex >> 16) & 0xff) / 255,
+                  green: Double((hex >> 8) & 0xff) / 255,
+                  blue: Double(hex & 0xff) / 255,
+                  opacity: 1)
+    }
+}
+#endif

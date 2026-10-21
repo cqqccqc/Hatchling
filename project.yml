@@ -19,6 +19,7 @@ targets:
       - WatchApp
     dependencies:
       - package: HatchlingKit
+      - target: HatchlingWidget
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.hatchling.watch
@@ -28,6 +29,26 @@ targets:
         INFOPLIST_KEY_WKWatchOnly: YES
         TARGETED_DEVICE_FAMILY: "4"
         CODE_SIGN_ENTITLEMENTS: WatchApp/Hatchling.entitlements
+  HatchlingWidget:
+    type: app-extension
+    platform: watchOS
+    sources:
+      - Widget
+    dependencies:
+      - package: HatchlingKit
+    info:
+      path: Widget/Info.plist
+      properties:
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.hatchling.watch.widget
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_CFBundleDisplayName: Hatchling
+        TARGETED_DEVICE_FAMILY: "4"
+        CODE_SIGN_ENTITLEMENTS: Widget/Widget.entitlements
+        SKIP_INSTALL: YES
 schemes:
   Hatchling:
     build:

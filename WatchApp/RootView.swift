@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftData
+import WidgetKit
 import HatchlingKit
 
 /// M2 主页：当前宠物大卡（摸头/喂养/探险）+ 屋子小卡（切换）· 零文字
@@ -370,7 +371,10 @@ struct RootView: View {
             }
             changed = true
         }
-        if changed { try? ctx.save() }
+        if changed {
+            try? ctx.save()
+            WidgetCenter.shared.reloadAllTimelines()   // 表盘同步宠物状态
+        }
     }
 
     private func hatch(_ pet: Pet) {
@@ -536,16 +540,6 @@ extension View {
             .background(RoundedRectangle(cornerRadius: 12).fill(Color(red: 0.07, green: 0.07, blue: 0.09)))
             .overlay(RoundedRectangle(cornerRadius: 12)
                 .stroke(Color.white.opacity(0.08), lineWidth: 1))
-    }
-}
-
-extension Color {
-    init(hex: UInt) {
-        self.init(Color.RGBColorSpace.sRGB,
-                  red: Double((hex >> 16) & 0xff) / 255,
-                  green: Double((hex >> 8) & 0xff) / 255,
-                  blue: Double(hex & 0xff) / 255,
-                  opacity: 1)
     }
 }
 

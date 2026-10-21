@@ -45,16 +45,17 @@
 1. ~~M0 工程骨架~~ ✅ 2026-10-21 完成（模拟器全流程通过；**真机安装**：Xcode 选用户自己的免费 Apple ID 签名 → 真机 Run；⚠️ 免费签名 7 天过期，到期连 Mac 重新 Run 即可）
 2. ~~M2 游戏循环~~ ✅ 2026-10-21 完成（Reconciler 结算引擎：孵化自动/任务自动出发·步数倒计时兜底·奖励分档/饱食心情增量漂移；UI：摸头❤️/喂豆三 chips/矿洞探险卡/收取礼盒，模拟器全自动生命周期验证）
    ~~M1 烘焙渲染管线~~ ✅ 2026-10-21 核心完成（PixelGrid/CreatureRenderer 移植采样器；Baker 烘 379 帧图集；PetScene SpriteKit 合成：呼吸/眨眼/双帧；模拟器真渲染验证通过。余：真机 30fps、glitch/溶解/teleport 特效、holo 动态流转）→ M2 游戏循环（含 Genetics.fuse + Reconciler 单测）→ M4 表盘 → M5 育种 → M6 节律 → M7 社交（详见 tech-architecture §11）
-3. M3 对话：🚧 暂缓，待与用户重新讨论方案
-4. 表盘姿态集细节、社交 P0 双机同步仪式细节
+3. ~~M4 表盘常驻~~ ✅ 2026-10-21 完成（Widget extension：accessoryCircular/Rectangular，timeline 24 条低频帧 + 心情点，App Group 只读，App 事件触发 reload）
+4. M3 对话：🚧 暂缓，待与用户重新讨论方案；M5 育种 UI（融合入口）/M6 HealthKit 步数接入/表盘姿态细节
 
 ## 工程现状（代码）
 
 ```
 Hatchling.xcodeproj   ← 由 xcodegen 从 project.yml 生成（改 project.yml 后须 `xcodegen generate`）
-project.yml           ← 工程定义（watchOS app 单 target + HatchlingKit 本地包）
-packages/HatchlingKit/  SPM 包：Domain(ValueTypes/Entities/GameConfig) + Persistence(Store)
-WatchApp/             SwiftUI 入口 + RootView（屋子列表/诞生蛋/孵化结算）
+project.yml           ← 工程定义（watchOS app + widget extension + HatchlingKit 本地包）
+packages/HatchlingKit/  SPM 包：Domain / Engine(Genetics/Reconciler) / Persistence / Render(PixelGrid/CreatureRenderer/PetScene/AtlasComposer) / Baker
+WatchApp/             SwiftUI 入口 + RootView（当前宠物大卡/喂豆/矿洞/屋子小卡）
+Widget/               表盘 Complication（accessoryCircular/Rectangular，timeline 24 条，读 App Group）
 ```
 
 - 部署目标 watchOS 11；构建验证：`xcodebuild -project Hatchling.xcodeproj -scheme Hatchling -sdk watchsimulator build CODE_SIGNING_ALLOWED=NO`
