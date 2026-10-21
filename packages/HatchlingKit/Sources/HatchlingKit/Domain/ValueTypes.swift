@@ -81,12 +81,14 @@ public struct GeneValue: Codable, Hashable, Sendable {
     public var glitch: GeneSlot<GlitchGene>
     public var taste: GeneSlot<TasteGene>
     public var shiny: Bool            // 异色（独立 roll，不遗传）
+    public var legendary: Legendary?  // 传说基因（物种限定，仅突变产生）
     public var personality: Personality
 
     public init(species: GeneSlot<SpeciesGene>, color: GeneSlot<ColorGene>,
                 antenna: GeneSlot<AntennaGene>, eyes: GeneSlot<EyeGene>,
                 pattern: GeneSlot<PatternGene>, glitch: GeneSlot<GlitchGene>,
                 taste: GeneSlot<TasteGene>, shiny: Bool = false,
+                legendary: Legendary? = nil,
                 personality: Personality = Personality()) {
         self.species = species
         self.color = color
@@ -96,6 +98,7 @@ public struct GeneValue: Codable, Hashable, Sendable {
         self.glitch = glitch
         self.taste = taste
         self.shiny = shiny
+        self.legendary = legendary
         self.personality = personality
     }
 }
@@ -152,6 +155,7 @@ extension GeneValue {
             glitch: slot(GlitchGene.allCases),
             taste: slot(TasteGene.allCases),
             shiny: false,
+            legendary: nil,
             personality: Personality(
                 cling: gauss(), snark: gauss(),
                 curiosity: gauss(), brave: gauss())

@@ -14,7 +14,9 @@
 		57618BFA91E769AFF78CAF9C /* HatchlingWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D84869EF1B900397B6042A /* HatchlingWidget.swift */; };
 		66FF77FD3D678075C4096463 /* PetSpriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB65585CE1FCA5013D2AFBD /* PetSpriteView.swift */; };
 		6A1A42E575C9CBBEBC729D60 /* HatchlingWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 809268A68DF083363B27094C /* HatchlingWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		6E60F5BDDB3DB510388D4010 /* AudioFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5A460FF88B1DD3A092DE2D /* AudioFeedback.swift */; };
 		A498E29509E7856E54230F50 /* HatchlingKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9ED3703E1183385B82031713 /* HatchlingKit */; };
+		F268406527B1E600A296AA49 /* Ceremonies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED81DB6D77292CCBD0E3DE7 /* Ceremonies.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,7 +52,9 @@
 		59BAEE1BB94888CF39532041 /* HatchlingKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HatchlingKit; path = packages/HatchlingKit; sourceTree = SOURCE_ROOT; };
 		6DDDDC63137012C4B43106B3 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		79846D58AA2244DCB6B35BCA /* Widget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Widget.entitlements; sourceTree = "<group>"; };
+		7C5A460FF88B1DD3A092DE2D /* AudioFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioFeedback.swift; sourceTree = "<group>"; };
 		809268A68DF083363B27094C /* HatchlingWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = HatchlingWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		9ED81DB6D77292CCBD0E3DE7 /* Ceremonies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ceremonies.swift; sourceTree = "<group>"; };
 		A4D84869EF1B900397B6042A /* HatchlingWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HatchlingWidget.swift; sourceTree = "<group>"; };
 		BC7476C6F66C26150B528985 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -115,6 +119,8 @@
 		91EFBE7D036413F584F6B901 /* WatchApp */ = {
 			isa = PBXGroup;
 			children = (
+				7C5A460FF88B1DD3A092DE2D /* AudioFeedback.swift */,
+				9ED81DB6D77292CCBD0E3DE7 /* Ceremonies.swift */,
 				107AE95455F789722047AEAA /* Hatchling.entitlements */,
 				08FA9B32C57B0DD408BE34C4 /* HatchlingApp.swift */,
 				6DDDDC63137012C4B43106B3 /* NotificationService.swift */,
@@ -206,6 +212,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E60F5BDDB3DB510388D4010 /* AudioFeedback.swift in Sources */,
+				F268406527B1E600A296AA49 /* Ceremonies.swift in Sources */,
 				4B1D9AAAC99CEB83EF30B0DF /* HatchlingApp.swift in Sources */,
 				4561AEBF4C26A9079C68111C /* NotificationService.swift in Sources */,
 				66FF77FD3D678075C4096463 /* PetSpriteView.swift in Sources */,

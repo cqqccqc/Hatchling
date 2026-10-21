@@ -16,6 +16,14 @@ struct RootView: View {
     @State private var feedOpen = ProcessInfo.processInfo.arguments.contains("-demoFeed")
     @State private var feedback: [String]?
     @State private var pendingTier: [UUID: TaskTier] = [:]   // arrived 待收取的档位
+    @State private var fuseMode = false
+    @State private var fuseSelected: [UUID] = []
+    @State private var ceremony: FusionCeremonyData?
+    @State private var pendingFusion: PendingFusion?
+    @State private var releaseCandidate: Pet?
+    // M5 演示加速（正式版：config.fuseGateHours / fatigueHours）
+    private let demoFuseGateSeconds: TimeInterval = 10
+    private let demoCooldownSeconds: TimeInterval = 30
 
     /// M0 演示加速（正式版：config.hatchMinutes / taskMaxHours）
     private let demoHatchSeconds: TimeInterval = 30
@@ -37,6 +45,15 @@ struct RootView: View {
             ScrollView {
                 VStack(spacing: 10) {
                     hud
+                    if fuseMode {
+                        HStack(spacing: 10) {
+                            ForEach(0..<2, id: \.self) { i in
+                                Circle()
+                                    .fill(i < fuseSelected.count ? Color(hex: 0xfee761) : Color.white.opacity(0.15))
+                                    .frame(width: 12, height: 12)
+                            }
+                        }
+                    }
                     if let pet = currentPet {
                         CurrentPetCard(pet: pet, now: now,
                                        taskInterval: taskInterval,
@@ -44,7 +61,9 @@ struct RootView: View {
                                        pendingTier: pendingTier[pet.id],
                                        onHatch: { hatch(pet) },
                                        onCollect: { collect(pet) })
-                            .onTapGesture { tapPet(pet) }
+                            .overlay(RoundedRectangle(cornerRadius: 12)
+                                .stroke(fuseSelected.contains(pet.id) ? Color(hex: 0xfee761) : .clear, lineWidth: 2))
+                            .onTapGesture { fuseMode ? tapFuseCandidate(pet) : tapPet(pet) }
                     } else {
                         emptyState
                     }
@@ -73,6 +92,16 @@ struct RootView: View {
                 spawnButton
             }
         }
+        .fullScreenCover(item: $ceremony) { data in
+            FusionCeremonyView(data: data) { finishFusion() }
+                .ignoresSafeArea()
+        }
+        .fullScreenCover(item: $releaseCandidate) { pet in
+            ReleaseConfirmView(pet: pet,
+                               onConfirm: { confirmRelease(pet) },
+                               onCancel: { releaseCandidate = nil })
+                .ignoresSafeArea()
+        }
         .task {
             now = Date()
             let args = ProcessInfo.processInfo.arguments
@@ -100,6 +129,24 @@ struct RootView: View {
                 pet.birthAt = Date()
                 ctx.insert(pet)
                 try? ctx.save()
+            }
+            // -demoTwo：两只活体；-demoFuse：两只 + 3 秒后自动融合（仪式验证）
+            if pets.isEmpty, args.contains("-demoTwo") || args.contains("-demoFuse") {
+                for name in ["零波", "咕噜"] {
+                    let p = Pet(name: name, gene: .random(), state: .home)
+                    p.birthAt = Date().addingTimeInterval(-86400 * 2)   // 两天前出生 → 满足融合门槛
+                    p.lastTaskDate = Date()                             // 今日已出发（防 Reconciler 打断 demo）
+                    ctx.insert(p)
+                }
+                try? ctx.save()
+            }
+            if args.contains("-demoFuse") {
+                Task { @MainActor in
+                    try? await Task.sleep(for: .seconds(3))
+                    startFuseMode()
+                    fuseSelected = pets.filter { $0.stateKind == .home }.prefix(2).map(\.id)
+                    if fuseSelected.count == 2 { runFusion() }
+                }
             }
         }
         .onReceive(Timer.publish(every: 2, on: .main, in: .common).autoconnect()) { t in
@@ -160,7 +207,7 @@ struct RootView: View {
             iconButton("🫘", active: feedOpen,
                        enabled: currentPet?.stateKind == .home) { withAnimation { feedOpen.toggle() } }
             exploreButton
-            iconButton("🧬", enabled: false) {}
+            iconButton("🧬", active: fuseMode) { startFuseMode() }
         }
     }
 
@@ -224,8 +271,7 @@ struct RootView: View {
         HStack(spacing: 10) {
             ForEach(others) { p in
                 Button {
-                    currentID = p.id
-                    withAnimation { }
+                    fuseMode ? tapFuseCandidate(p) : (currentID = p.id)
                 } label: {
                     VStack(spacing: 4) {
                         PetSpriteView(gene: p.gene ?? .random())
@@ -235,8 +281,15 @@ struct RootView: View {
                     }
                     .frame(width: 74, height: 84)
                     .background(RoundedRectangle(cornerRadius: 10).fill(Color(white: 0.1)))
+                    .overlay(RoundedRectangle(cornerRadius: 10)
+                        .stroke(fuseSelected.contains(p.id) ? Color(hex: 0xfee761) : .clear, lineWidth: 2))
                 }
                 .buttonStyle(.plain)
+                .contextMenu {
+                    Button { releaseCandidate = p } label: {
+                        Image(systemName: "arrow.up.circle.dotted")
+                    }
+                }
             }
         }
     }
@@ -339,6 +392,103 @@ struct RootView: View {
         hapticPulse()
     }
 
+    // MARK: - M5 育种：融合模式
+
+    private func startFuseMode() {
+        guard pets.filter({ $0.stateKind == .home }).count >= 2 else {
+            showFeedback(["❌"]); return
+        }
+        fuseMode = true
+        fuseSelected = []
+        showFeedback(["🧬"])
+        beep(600, 0.05)
+    }
+
+    private func tapFuseCandidate(_ pet: Pet) {
+        guard pet.stateKind == .home else { showFeedback(["⏳"]); return }
+        guard Date().timeIntervalSince(pet.birthAt) >= demoFuseGateSeconds else {
+            showFeedback(["🐣"]); return
+        }
+        if let cd = pet.cooldownUntil, Date() < cd { showFeedback(["⏳"]); return }
+        if let idx = fuseSelected.firstIndex(of: pet.id) {
+            fuseSelected.remove(at: idx)
+        } else if fuseSelected.count < 2 {
+            fuseSelected.append(pet.id)
+        }
+        beep(600, 0.04)
+        if fuseSelected.count == 2 { runFusion() }
+    }
+
+    private func runFusion() {
+        let pair = fuseSelected.compactMap { id in pets.first { $0.id == id } }
+        guard pair.count == 2,
+              let pa = pair.first, let pb = pair.last,
+              let ga = pa.gene, let gb = pb.gene else { fuseMode = false; return }
+        fuseMode = false
+        fuseSelected = []
+        var rng = SystemRandomNumberGenerator()
+        let out = Genetics.fuse(a: ga, b: gb, bondA: pa.bond, bondB: pb.bond,
+                                aRareGenes: parseGlobalGenes(pa.rareGenes),
+                                bRareGenes: parseGlobalGenes(pb.rareGenes),
+                                sinceRare: BreedingPity.load(),
+                                config: config, rng: &rng)
+        let childName = ["波啾", "咖豆", "咪零", "泡崽", "啾咪"].randomElement()!
+        ceremony = FusionCeremonyData(parentA: ga, parentB: gb,
+                                      childGene: out.gene, childName: childName,
+                                      mutations: out.mutations)
+        pendingFusion = PendingFusion(output: out, parentIDs: [pa.id, pb.id],
+                                      childName: childName)
+    }
+
+    /// 仪式完成后落库：蛋入屋 + 双亲疲劳冷却 + 保底计数
+    private func finishFusion() {
+        guard let pf = pendingFusion else { ceremony = nil; return }
+        let egg = Pet(name: pf.childName, gene: pf.output.gene, state: .egg,
+                      source: "fuse", hatchAt: Date().addingTimeInterval(demoHatchSeconds))
+        egg.gen = max(parentGen(pf.parentIDs[0]), parentGen(pf.parentIDs[1])) + 1
+        egg.parentA = pf.parentIDs[0]
+        egg.parentB = pf.parentIDs[1]
+        egg.rareGenes = pf.output.rareGenes.map(\.rawValue).joined(separator: ",")
+        ctx.insert(egg)
+        ctx.insert(EventLog(type: .fuse, petID: egg.id,
+                            payload: pf.output.mutations.joined(separator: ",")))
+        for pid in pf.parentIDs {
+            if let p = pets.first(where: { $0.id == pid }) {
+                p.fuseCount += 1
+                p.cooldownUntil = Date().addingTimeInterval(demoCooldownSeconds)
+            }
+        }
+        if Genetics.shouldResetPity(pf.output) { BreedingPity.reset() } else { BreedingPity.increment() }
+        try? ctx.save()
+        pendingFusion = nil
+        ceremony = nil
+        currentID = nil
+        showFeedback(["🧬"])
+    }
+
+    private func parentGen(_ id: UUID) -> Int {
+        pets.first { $0.id == id }?.gen ?? 0
+    }
+    private func parseGlobalGenes(_ s: String) -> [GlobalGene] {
+        s.split(separator: ",").compactMap { GlobalGene(rawValue: String($0)) }
+    }
+
+    // MARK: - M5 放生归档（用户感受 = 送行；实现 = Archive 落库）
+
+    private func confirmRelease(_ pet: Pet) {
+        let digest = "Gen\(pet.gen) · \(pet.name)"
+        let arch = Archive(name: pet.name, gene: pet.gene, gen: pet.gen,
+                           parentA: pet.parentA, parentB: pet.parentB,
+                           birthAt: pet.birthAt, eventDigest: digest)
+        ctx.insert(arch)
+        ctx.insert(EventLog(type: .release, petID: pet.id, payload: digest))
+        if currentID == pet.id { currentID = nil }
+        ctx.delete(pet)
+        try? ctx.save()
+        releaseCandidate = nil
+        showFeedback(["🕊️"])
+    }
+
     // MARK: - 结算（D1：抬腕/timer 驱动 Reconciler）
 
     private func reconcile(at now: Date) {
@@ -423,11 +573,16 @@ struct RootView: View {
         try? ctx.save()
     }
 
-    private func beep(_ f: Double, _ d: Double) {}
-    private func hapticPulse() {}
 }
 
 // MARK: - 当前宠物大卡
+
+/// 仪式期间挂起的融合结果（演出完成后落库）
+struct PendingFusion {
+    let output: FusionOutput
+    let parentIDs: [UUID]
+    let childName: String
+}
 
 struct CurrentPetCard: View {
     let pet: Pet

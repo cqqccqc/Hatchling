@@ -88,6 +88,7 @@ public enum Genetics {
         if Double.random(in: 0..<1, using: &rng) < config.mutateLegendary * luck,
            let leg = Legendary.allCases.first(where: { $0.species == out.gene.species.express }) {
             out.legendary = leg
+            out.gene.legendary = leg
             out.mutations.append("legendary:\(leg.rawValue)")
         }
 
