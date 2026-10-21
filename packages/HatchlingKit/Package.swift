@@ -5,7 +5,7 @@ let package = Package(
     name: "HatchlingKit",
     platforms: [
         .watchOS(.v11),
-        .macOS(.v15),   // 为 Baker（构建期烘焙）预留
+        .macOS(.v15),   // Baker（构建期烘焙）
     ],
     products: [
         .library(name: "HatchlingKit", targets: ["HatchlingKit"]),
@@ -13,6 +13,13 @@ let package = Package(
     targets: [
         .target(
             name: "HatchlingKit",
+            resources: [.copy("Resources")],
+            swiftSettings: [.swiftLanguageMode(.v5)]
+        ),
+        .executableTarget(
+            name: "Baker",
+            dependencies: ["HatchlingKit"],
+            path: "Baker",
             swiftSettings: [.swiftLanguageMode(.v5)]
         ),
         .testTarget(

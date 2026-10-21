@@ -344,6 +344,8 @@ extern "C" {
 #if __has_warning("-Watimport-in-framework-header")
 #pragma clang diagnostic ignored "-Watimport-in-framework-header"
 #endif
+@import CoreFoundation;
+@import SpriteKit;
 #endif
 
 #endif // defined(__OBJC__)
@@ -365,6 +367,16 @@ extern "C" {
 #endif
 
 #if defined(__OBJC__)
+
+@class NSCoder;
+/// 宠物舞台：图层合成（背景/身体/眼/天线）+ 呼吸 + 眨眼 + 双帧姿态
+SWIFT_CLASS("_TtC12HatchlingKit8PetScene")
+@interface PetScene : SKScene
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder SWIFT_UNAVAILABLE;
+- (nonnull instancetype)initWithSize:(CGSize)size SWIFT_UNAVAILABLE;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
 
 #endif // defined(__OBJC__)
 #if __has_attribute(external_source_symbol)

@@ -1,0 +1,12 @@
+{
+  "": {
+    "swift-dependencies": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/Baker.build/primary.swiftdeps"
+  },
+  "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Baker/main.swift": {
+    "dependencies": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/Baker.build/main.d",
+    "object": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/Baker.build/main.swift.o",
+    "swiftmodule": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/Baker.build/main~partial.swiftmodule",
+    "swift-dependencies": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/Baker.build/main.swiftdeps",
+    "diagnostics": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/Baker.build/main.dia"
+  }
+}

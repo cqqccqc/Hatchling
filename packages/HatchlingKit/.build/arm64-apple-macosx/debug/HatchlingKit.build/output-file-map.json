@@ -29,5 +29,40 @@
     "swiftmodule": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/Store~partial.swiftmodule",
     "swift-dependencies": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/Store.swiftdeps",
     "diagnostics": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/Store.dia"
+  },
+  "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Render/CreatureRenderer.swift": {
+    "dependencies": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/CreatureRenderer.d",
+    "object": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/CreatureRenderer.swift.o",
+    "swiftmodule": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/CreatureRenderer~partial.swiftmodule",
+    "swift-dependencies": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/CreatureRenderer.swiftdeps",
+    "diagnostics": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/CreatureRenderer.dia"
+  },
+  "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Render/PetScene.swift": {
+    "dependencies": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/PetScene.d",
+    "object": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/PetScene.swift.o",
+    "swiftmodule": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/PetScene~partial.swiftmodule",
+    "swift-dependencies": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/PetScene.swiftdeps",
+    "diagnostics": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/PetScene.dia"
+  },
+  "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Render/Pixel.swift": {
+    "dependencies": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/Pixel.d",
+    "object": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/Pixel.swift.o",
+    "swiftmodule": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/Pixel~partial.swiftmodule",
+    "swift-dependencies": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/Pixel.swiftdeps",
+    "diagnostics": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/Pixel.dia"
+  },
+  "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Render/Rasterize.swift": {
+    "dependencies": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/Rasterize.d",
+    "object": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/Rasterize.swift.o",
+    "swiftmodule": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/Rasterize~partial.swiftmodule",
+    "swift-dependencies": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/Rasterize.swiftdeps",
+    "diagnostics": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/Rasterize.dia"
+  },
+  "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/DerivedSources/resource_bundle_accessor.swift": {
+    "dependencies": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/resource_bundle_accessor.d",
+    "object": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/resource_bundle_accessor.swift.o",
+    "swiftmodule": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/resource_bundle_accessor~partial.swiftmodule",
+    "swift-dependencies": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/resource_bundle_accessor.swiftdeps",
+    "diagnostics": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/resource_bundle_accessor.dia"
   }
 }

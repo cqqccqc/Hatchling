@@ -190,10 +190,11 @@ struct PetCard: View {
         }
     }
 
-    // 活体：物种 emoji + 名字 + 心情条 + Gen 徽标 + 异色角标
+    // 活体：像素渲染宠物 + 名字 + 心情条 + Gen 徽标 + 异色角标
     @ViewBuilder private var petBody: some View {
-        HStack(spacing: 12) {
-        Text(speciesEmoji).font(.system(size: 34))
+        HStack(spacing: 8) {
+        PetSpriteView(gene: pet.gene ?? .random())
+            .frame(width: 62, height: 62)
         VStack(alignment: .leading, spacing: 6) {
             HStack(spacing: 5) {
                 Text(pet.name).font(.headline)
@@ -218,14 +219,6 @@ struct PetCard: View {
 // MARK: - 表现层映射（emoji/颜色 = 形状化语言）
 
 private extension PetCard {
-    var speciesEmoji: String {
-        switch pet.gene?.species.express {
-        case .ghost: return "👻"
-        case .pod: return "🛸"
-        case .crystal: return "💎"
-        case nil: return "❔"
-        }
-    }
     var moodLv: Int { pet.mood >= 66 ? 3 : pet.mood >= 33 ? 2 : 1 }
     var moodColor: Color {
         [Color(hex: 0xe43b44), Color(hex: 0xfeae34), Color(hex: 0x63c74d)][moodLv - 1]

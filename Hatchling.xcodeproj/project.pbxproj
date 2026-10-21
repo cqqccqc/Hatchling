@@ -10,12 +10,14 @@
 		1C8EF96A6FCAB8C00F905B99 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7476C6F66C26150B528985 /* RootView.swift */; };
 		4B1D9AAAC99CEB83EF30B0DF /* HatchlingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FA9B32C57B0DD408BE34C4 /* HatchlingApp.swift */; };
 		50ADA584B65F17FA9161C217 /* HatchlingKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2FF33077DCAB6ED078CCD214 /* HatchlingKit */; };
+		66FF77FD3D678075C4096463 /* PetSpriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB65585CE1FCA5013D2AFBD /* PetSpriteView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		08FA9B32C57B0DD408BE34C4 /* HatchlingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HatchlingApp.swift; sourceTree = "<group>"; };
 		107AE95455F789722047AEAA /* Hatchling.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Hatchling.entitlements; sourceTree = "<group>"; };
 		14DCE590028E30B3314225F6 /* Hatchling.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hatchling.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4AB65585CE1FCA5013D2AFBD /* PetSpriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetSpriteView.swift; sourceTree = "<group>"; };
 		59BAEE1BB94888CF39532041 /* HatchlingKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HatchlingKit; path = packages/HatchlingKit; sourceTree = SOURCE_ROOT; };
 		BC7476C6F66C26150B528985 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -62,6 +64,7 @@
 			children = (
 				107AE95455F789722047AEAA /* Hatchling.entitlements */,
 				08FA9B32C57B0DD408BE34C4 /* HatchlingApp.swift */,
+				4AB65585CE1FCA5013D2AFBD /* PetSpriteView.swift */,
 				BC7476C6F66C26150B528985 /* RootView.swift */,
 			);
 			path = WatchApp;
@@ -97,6 +100,8 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+				};
 			};
 			buildConfigurationList = 117E8429BDC5000001B49832 /* Build configuration list for PBXProject "Hatchling" */;
 			developmentRegion = en;
@@ -126,6 +131,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B1D9AAAC99CEB83EF30B0DF /* HatchlingApp.swift in Sources */,
+				66FF77FD3D678075C4096463 /* PetSpriteView.swift in Sources */,
 				1C8EF96A6FCAB8C00F905B99 /* RootView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -194,7 +200,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = WatchApp/Hatchling.entitlements;
-				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Hatchling;
 				INFOPLIST_KEY_WKApplication = YES;
@@ -274,7 +279,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = WatchApp/Hatchling.entitlements;
-				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Hatchling;
 				INFOPLIST_KEY_WKApplication = YES;

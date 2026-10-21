@@ -7,7 +7,20 @@
     }
   ],
   "copyCommands" : {
-
+    "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit_HatchlingKit.bundle/Resources" : {
+      "inputs" : [
+        {
+          "kind" : "directory",
+          "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Resources"
+        }
+      ],
+      "outputs" : [
+        {
+          "kind" : "directory",
+          "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit_HatchlingKit.bundle/Resources"
+        }
+      ]
+    }
   },
   "explicitTargetDependencyImportCheckingMode" : {
     "none" : {
@@ -21,6 +34,101 @@
 
   ],
   "swiftCommands" : {
+    "C.Baker-arm64-apple-macosx-debug.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/Baker.build/sources",
+      "importPath" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Baker/main.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/Modules/HatchlingKit.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/Baker.build/sources"
+        }
+      ],
+      "isLibrary" : false,
+      "moduleName" : "Baker",
+      "moduleOutputPath" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/Modules/Baker.swiftmodule",
+      "objects" : [
+        "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/Baker.build/main.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx15.0",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-j12",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-Xfrontend",
+        "-entry-point-function-name",
+        "-Xfrontend",
+        "Baker_main",
+        "-swift-version",
+        "5",
+        "-plugin-path",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "hatchlingkit"
+      ],
+      "outputFileMapPath" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/Baker.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/Baker.build/main.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/Modules/Baker.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Baker/main.swift"
+      ],
+      "tempsPath" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/Baker.build",
+      "wholeModuleOptimization" : false
+    },
     "C.HatchlingKit-arm64-apple-macosx-debug.module" : {
       "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
       "fileList" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/sources",
@@ -44,7 +152,31 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Render/CreatureRenderer.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Render/PetScene.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Render/Pixel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Render/Rasterize.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/DerivedSources/resource_bundle_accessor.swift"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "virtual",
+          "name" : "<HatchlingKit-arm64-apple-macosx-debug.module-resources>"
         },
         {
           "kind" : "file",
@@ -58,7 +190,12 @@
         "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/Entities.swift.o",
         "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/GameConfig.swift.o",
         "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/ValueTypes.swift.o",
-        "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/Store.swift.o"
+        "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/Store.swift.o",
+        "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/CreatureRenderer.swift.o",
+        "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/PetScene.swift.o",
+        "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/Pixel.swift.o",
+        "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/Rasterize.swift.o",
+        "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/resource_bundle_accessor.swift.o"
       ],
       "otherArguments" : [
         "-target",
@@ -73,7 +210,7 @@
         "-j12",
         "-DSWIFT_PACKAGE",
         "-DDEBUG",
-        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_AVAILABLE",
         "-module-cache-path",
         "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/ModuleCache",
         "-parseable-output",
@@ -129,6 +266,26 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/CreatureRenderer.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/PetScene.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/Pixel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/Rasterize.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/resource_bundle_accessor.swift.o"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/Modules/HatchlingKit.swiftmodule"
         }
       ],
@@ -137,7 +294,12 @@
         "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Domain/Entities.swift",
         "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Domain/GameConfig.swift",
         "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Domain/ValueTypes.swift",
-        "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Persistence/Store.swift"
+        "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Persistence/Store.swift",
+        "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Render/CreatureRenderer.swift",
+        "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Render/PetScene.swift",
+        "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Render/Pixel.swift",
+        "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Render/Rasterize.swift",
+        "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/DerivedSources/resource_bundle_accessor.swift"
       ],
       "tempsPath" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build",
       "wholeModuleOptimization" : false
@@ -336,17 +498,14 @@
 
   },
   "swiftTargetScanArgs" : {
-    "HatchlingKit" : [
+    "Baker" : [
       "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
       "-module-name",
-      "HatchlingKit",
+      "Baker",
       "-package-name",
       "hatchlingkit",
       "-c",
-      "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Domain/Entities.swift",
-      "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Domain/GameConfig.swift",
-      "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Domain/ValueTypes.swift",
-      "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Persistence/Store.swift",
+      "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Baker/main.swift",
       "-I",
       "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/Modules",
       "-target",
@@ -362,6 +521,74 @@
       "-DSWIFT_PACKAGE",
       "-DDEBUG",
       "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-Xfrontend",
+      "-entry-point-function-name",
+      "-Xfrontend",
+      "Baker_main",
+      "-swift-version",
+      "5",
+      "-plugin-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "hatchlingkit",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ],
+    "HatchlingKit" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "HatchlingKit",
+      "-package-name",
+      "hatchlingkit",
+      "-c",
+      "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Domain/Entities.swift",
+      "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Domain/GameConfig.swift",
+      "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Domain/ValueTypes.swift",
+      "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Persistence/Store.swift",
+      "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Render/CreatureRenderer.swift",
+      "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Render/PetScene.swift",
+      "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Render/Pixel.swift",
+      "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Render/Rasterize.swift",
+      "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/DerivedSources/resource_bundle_accessor.swift",
+      "-I",
+      "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx15.0",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-j12",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_AVAILABLE",
       "-module-cache-path",
       "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/ModuleCache",
       "-parseable-output",
@@ -520,6 +747,9 @@
     ]
   },
   "targetDependencyMap" : {
+    "Baker" : [
+      "HatchlingKit"
+    ],
     "HatchlingKit" : [
 
     ],
@@ -553,6 +783,84 @@
     }
   },
   "writeCommands" : {
+    "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/Baker-entitlement.plist" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<entitlement-plist>"
+        },
+        {
+          "kind" : "virtual",
+          "name" : "<com.apple.security.get-task-allow>"
+        }
+      ],
+      "outputFilePath" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/Baker-entitlement.plist"
+    },
+    "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/Baker.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Baker/main.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/Baker.build/sources"
+    },
+    "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/Baker.product/Objects.LinkFileList" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<link-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/Baker.build/main.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/CreatureRenderer.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/Entities.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/GameConfig.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/PetScene.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/Pixel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/Rasterize.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/Store.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/ValueTypes.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/resource_bundle_accessor.swift.o"
+        }
+      ],
+      "outputFilePath" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/Baker.product/Objects.LinkFileList"
+    },
     "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/sources" : {
       "alwaysOutOfDate" : false,
       "inputs" : [
@@ -575,6 +883,26 @@
         {
           "kind" : "file",
           "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Persistence/Store.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Render/CreatureRenderer.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Render/PetScene.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Render/Pixel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Render/Rasterize.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/DerivedSources/resource_bundle_accessor.swift"
         }
       ],
       "outputFilePath" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/sources"
@@ -602,6 +930,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/CreatureRenderer.swift.o"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/Entities.swift.o"
         },
         {
@@ -610,11 +942,27 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/PetScene.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/Pixel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/Rasterize.swift.o"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/Store.swift.o"
         },
         {
           "kind" : "file",
           "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/ValueTypes.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/resource_bundle_accessor.swift.o"
         },
         {
           "kind" : "file",
