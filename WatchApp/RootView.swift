@@ -9,6 +9,9 @@ struct RootView: View {
     @Query(sort: \Pet.createdAt) private var pets: [Pet]
     @State private var config = GameConfig.load()
     @State private var now = Date()
+    @State private var stepsToday = 0
+    @State private var demoStepsOverride: Int? = nil
+    @State private var lastStepsFetch = Date.distantPast
     @State private var currentID: UUID?
     @State private var feedOpen = ProcessInfo.processInfo.arguments.contains("-demoFeed")
     @State private var feedback: [String]?
@@ -37,6 +40,7 @@ struct RootView: View {
                     if let pet = currentPet {
                         CurrentPetCard(pet: pet, now: now,
                                        taskInterval: taskInterval,
+                                       stepsToday: stepsToday,
                                        pendingTier: pendingTier[pet.id],
                                        onHatch: { hatch(pet) },
                                        onCollect: { collect(pet) })
@@ -72,6 +76,20 @@ struct RootView: View {
         .task {
             now = Date()
             let args = ProcessInfo.processInfo.arguments
+            // -demoSteps=N 注入优先（模拟器测标准档；真实拉取只在无注入时）
+            if let arg = args.first(where: { $0.hasPrefix("-demoSteps=") }),
+               let v = Int(arg.dropFirst("-demoSteps=".count)) {
+                demoStepsOverride = v
+                stepsToday = v
+            } else if await HealthKitClient.shared.requestAuthorization() {
+                stepsToday = await HealthKitClient.shared.stepsToday()
+            }
+            // 模拟器不弹通知授权（干扰自动化）；真机首次启动请求（毒舌闹钟）
+            #if !targetEnvironment(simulator)
+            if !args.contains("-noNotifications") {
+                NotificationService.scheduleMorningAlarm(personality: currentPet?.gene?.personality)
+            }
+            #endif
             if pets.isEmpty, args.contains("-demoAutospawn") {
                 spawnEgg()
             }
@@ -325,7 +343,15 @@ struct RootView: View {
 
     private func reconcile(at now: Date) {
         guard !pets.isEmpty else { return }
-        var steps = 0   // M2 无 HealthKit → 任务走倒计时兜底（M6 接入）
+        // 步数节流刷新（60s）：真机走路时任务可提前达标收工；demo 注入时不拉取
+        if demoStepsOverride == nil, now.timeIntervalSince(lastStepsFetch) > 60 {
+            lastStepsFetch = now
+            Task {
+                let s = await HealthKitClient.shared.stepsToday()
+                await MainActor.run { stepsToday = s }
+            }
+        }
+        let steps = stepsToday
         let snapshots = pets.map { p in
             PetSnapshot(id: p.id, state: p.stateKind, hatchAt: p.hatchAt,
                         hunger: p.hunger, mood: p.mood,
@@ -407,6 +433,7 @@ struct CurrentPetCard: View {
     let pet: Pet
     let now: Date
     let taskInterval: TimeInterval
+    var stepsToday: Int = 0
     let pendingTier: TaskTier?
     let onHatch: () -> Void
     let onCollect: () -> Void
@@ -481,6 +508,11 @@ struct CurrentPetCard: View {
                     }
                 }
                 .frame(height: 8)
+                HStack(spacing: 4) {
+                    Text("👣").font(.caption2)
+                    Text("\(stepsToday)").font(.system(size: 12, design: .monospaced))
+                        .foregroundStyle(Color(hex: 0x2ce8f5))
+                }
             }
             Spacer()
         }

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1C8EF96A6FCAB8C00F905B99 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7476C6F66C26150B528985 /* RootView.swift */; };
+		4561AEBF4C26A9079C68111C /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DDDDC63137012C4B43106B3 /* NotificationService.swift */; };
 		4B1D9AAAC99CEB83EF30B0DF /* HatchlingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FA9B32C57B0DD408BE34C4 /* HatchlingApp.swift */; };
 		50ADA584B65F17FA9161C217 /* HatchlingKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2FF33077DCAB6ED078CCD214 /* HatchlingKit */; };
 		57618BFA91E769AFF78CAF9C /* HatchlingWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D84869EF1B900397B6042A /* HatchlingWidget.swift */; };
@@ -47,6 +48,7 @@
 		2025CF7A0828F064B1E1C249 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		4AB65585CE1FCA5013D2AFBD /* PetSpriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetSpriteView.swift; sourceTree = "<group>"; };
 		59BAEE1BB94888CF39532041 /* HatchlingKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HatchlingKit; path = packages/HatchlingKit; sourceTree = SOURCE_ROOT; };
+		6DDDDC63137012C4B43106B3 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		79846D58AA2244DCB6B35BCA /* Widget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Widget.entitlements; sourceTree = "<group>"; };
 		809268A68DF083363B27094C /* HatchlingWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = HatchlingWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4D84869EF1B900397B6042A /* HatchlingWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HatchlingWidget.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 			children = (
 				107AE95455F789722047AEAA /* Hatchling.entitlements */,
 				08FA9B32C57B0DD408BE34C4 /* HatchlingApp.swift */,
+				6DDDDC63137012C4B43106B3 /* NotificationService.swift */,
 				4AB65585CE1FCA5013D2AFBD /* PetSpriteView.swift */,
 				BC7476C6F66C26150B528985 /* RootView.swift */,
 			);
@@ -204,6 +207,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B1D9AAAC99CEB83EF30B0DF /* HatchlingApp.swift in Sources */,
+				4561AEBF4C26A9079C68111C /* NotificationService.swift in Sources */,
 				66FF77FD3D678075C4096463 /* PetSpriteView.swift in Sources */,
 				1C8EF96A6FCAB8C00F905B99 /* RootView.swift in Sources */,
 			);
@@ -291,6 +295,8 @@
 				CODE_SIGN_ENTITLEMENTS = WatchApp/Hatchling.entitlements;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Hatchling;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "读取步数与睡眠，让宠物陪你运动、感知你的作息";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "记录宠物陪伴你运动的数据";
 				INFOPLIST_KEY_WKApplication = YES;
 				INFOPLIST_KEY_WKWatchOnly = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hatchling.watch;
@@ -370,6 +376,8 @@
 				CODE_SIGN_ENTITLEMENTS = WatchApp/Hatchling.entitlements;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Hatchling;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "读取步数与睡眠，让宠物陪你运动、感知你的作息";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "记录宠物陪伴你运动的数据";
 				INFOPLIST_KEY_WKApplication = YES;
 				INFOPLIST_KEY_WKWatchOnly = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hatchling.watch;

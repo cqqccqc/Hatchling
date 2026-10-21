@@ -29,6 +29,8 @@ targets:
         INFOPLIST_KEY_WKWatchOnly: YES
         TARGETED_DEVICE_FAMILY: "4"
         CODE_SIGN_ENTITLEMENTS: WatchApp/Hatchling.entitlements
+        INFOPLIST_KEY_NSHealthShareUsageDescription: "读取步数与睡眠，让宠物陪你运动、感知你的作息"
+        INFOPLIST_KEY_NSHealthUpdateUsageDescription: "记录宠物陪伴你运动的数据"
   HatchlingWidget:
     type: app-extension
     platform: watchOS

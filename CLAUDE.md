@@ -45,8 +45,9 @@
 1. ~~M0 工程骨架~~ ✅ 2026-10-21 完成（模拟器全流程通过；**真机安装**：Xcode 选用户自己的免费 Apple ID 签名 → 真机 Run；⚠️ 免费签名 7 天过期，到期连 Mac 重新 Run 即可）
 2. ~~M2 游戏循环~~ ✅ 2026-10-21 完成（Reconciler 结算引擎：孵化自动/任务自动出发·步数倒计时兜底·奖励分档/饱食心情增量漂移；UI：摸头❤️/喂豆三 chips/矿洞探险卡/收取礼盒，模拟器全自动生命周期验证）
    ~~M1 烘焙渲染管线~~ ✅ 2026-10-21 核心完成（PixelGrid/CreatureRenderer 移植采样器；Baker 烘 379 帧图集；PetScene SpriteKit 合成：呼吸/眨眼/双帧；模拟器真渲染验证通过。余：真机 30fps、glitch/溶解/teleport 特效、holo 动态流转）→ M2 游戏循环（含 Genetics.fuse + Reconciler 单测）→ M4 表盘 → M5 育种 → M6 节律 → M7 社交（详见 tech-architecture §11）
-3. ~~M4 表盘常驻~~ ✅ 2026-10-21 完成（Widget extension：accessoryCircular/Rectangular，timeline 24 条低频帧 + 心情点，App Group 只读，App 事件触发 reload）
-4. M3 对话：🚧 暂缓，待与用户重新讨论方案；M5 育种 UI（融合入口）/M6 HealthKit 步数接入/表盘姿态细节
+3. ~~M4 表盘常驻~~ ✅ 2026-10-21 完成（Widget extension：accessoryCircular/Rectangular + 智能叠放伪表盘大卡，timeline 24 条低频帧 + 心情点，App Group 只读，App 事件触发 reload）
+4. ~~M6 步数节律~~ ✅ 2026-10-21 完成（HealthKit 授权+今日步数查询、任务双条件步数主/倒计时兜底、探险卡 👣 步数显示、毒舌闹钟通知——模拟器经 -demoSteps=N 验证标准档；**余：真机睡眠分期接入、早安梦话（随对话方案）**）
+5. M5 育种 UI：融合入口/仪式/血统谱（Genetics 引擎已就绪）；M3 对话：🚧 暂缓待重议；表盘姿态细节
 
 ## 工程现状（代码）
 
@@ -69,5 +70,5 @@ Widget/               表盘 Complication（accessoryCircular/Rectangular，time
 - 改决策必须同步回写对应文档：版本号递增 + 文档头部追加修订记录（现有惯例见各文档头部）
 - `docs/plan/*.html` 原型是独立单文件，改完用浏览器直接验证（可借助 Playwright/Chrome MCP 跑 `python3 -m http.server` 测试，file:// 下麦克风等能力受限）
 - **xcodegen 用显式文件列表**：WatchApp/ 下**新增或删除源文件后必须 `xcodegen generate`**（改已有文件内容不需要）；改 project.yml 同理
-- 演示开关（simctl launch 传参）：`-demoAutospawn` 空屋坠蛋 · `-demoHome` 直接活体 · `-demoFeed` 打开喂豆面板
+- 演示开关（simctl launch 传参）：`-demoAutospawn` 空屋坠蛋 · `-demoHome` 直接活体 · `-demoFeed` 打开喂豆面板 · `-demoSteps=N` 注入步数（验证任务标准档）· `-noNotifications` 跳过闹钟授权
 - git：工作分支 `dev`，`main` 用于 PR；commit 信息中文、结尾按惯例附 Co-Authored-By
