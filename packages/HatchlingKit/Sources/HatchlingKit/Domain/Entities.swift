@@ -29,6 +29,7 @@ public final class Pet {
     public var bond: Double = 0
     public var exploringSince: Date?
     public var lastTaskDate: Date?
+    public var lastTickAt: Date?             // 上次结算时刻（增量漂移基准）
     public var cooldownUntil: Date?
     public var fuseCount: Int = 0
     public var createdAt: Date = Date()

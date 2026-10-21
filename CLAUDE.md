@@ -43,7 +43,8 @@
 ## 当前待办（优先序）
 
 1. ~~M0 工程骨架~~ ✅ 2026-10-21 完成（模拟器全流程通过；**真机安装**：Xcode 选用户自己的免费 Apple ID 签名 → 真机 Run；⚠️ 免费签名 7 天过期，到期连 Mac 重新 Run 即可）
-2. ~~M1 烘焙渲染管线~~ ✅ 2026-10-21 核心完成（PixelGrid/CreatureRenderer 移植采样器；Baker 烘 379 帧图集；PetScene SpriteKit 合成：呼吸/眨眼/双帧；模拟器真渲染验证通过。余：真机 30fps、glitch/溶解/teleport 特效、holo 动态流转）→ M2 游戏循环（含 Genetics.fuse + Reconciler 单测）→ M4 表盘 → M5 育种 → M6 节律 → M7 社交（详见 tech-architecture §11）
+2. ~~M2 游戏循环~~ ✅ 2026-10-21 完成（Reconciler 结算引擎：孵化自动/任务自动出发·步数倒计时兜底·奖励分档/饱食心情增量漂移；UI：摸头❤️/喂豆三 chips/矿洞探险卡/收取礼盒，模拟器全自动生命周期验证）
+   ~~M1 烘焙渲染管线~~ ✅ 2026-10-21 核心完成（PixelGrid/CreatureRenderer 移植采样器；Baker 烘 379 帧图集；PetScene SpriteKit 合成：呼吸/眨眼/双帧；模拟器真渲染验证通过。余：真机 30fps、glitch/溶解/teleport 特效、holo 动态流转）→ M2 游戏循环（含 Genetics.fuse + Reconciler 单测）→ M4 表盘 → M5 育种 → M6 节律 → M7 社交（详见 tech-architecture §11）
 3. M3 对话：🚧 暂缓，待与用户重新讨论方案
 4. 表盘姿态集细节、社交 P0 双机同步仪式细节
 
