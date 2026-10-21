@@ -1,0 +1,12 @@
+{
+  "": {
+    "swift-dependencies": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKitPackageTests.build/primary.swiftdeps"
+  },
+  "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKitPackageTests.derived/runner.swift": {
+    "dependencies": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKitPackageTests.build/runner.d",
+    "object": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKitPackageTests.build/runner.swift.o",
+    "swiftmodule": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKitPackageTests.build/runner~partial.swiftmodule",
+    "swift-dependencies": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKitPackageTests.build/runner.swiftdeps",
+    "diagnostics": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKitPackageTests.build/runner.dia"
+  }
+}

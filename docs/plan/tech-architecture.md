@@ -4,6 +4,7 @@
 > 平台：watchOS 11+ · SwiftUI · 基准 46mm · v1 纯手表（数据层按跨端设计）
 >
 > v0.2：从"选型文档"升级为工程蓝图——新增代码架构（§3）、核心协议与接口（§4）、关键流程时序（§6）、云端协议要点（§7）
+> v0.4：**零云化**（v2.3 裁决）——去掉 CloudKit/iCloud（不申请开发者账号），数据 100% 本地；对话云端部分此前已暂缓；社交传输层暂缓
 
 ---
 
@@ -28,7 +29,7 @@
 │ 云端智能：火山引擎/豆包系三件套（讯飞为 ASR 备选，见 D3/D7）      │
 │  流式 ASR · doubao LLM(OpenAI 兼容) · 流式 TTS                 │
 └──────────────────────────────────────────────────────────────┘
-数据面（不经云端厂商）：CloudKit 私有库自动同步 · HealthKit 本地 · WatchConnectivity(二期)
+数据面：SwiftData 纯本地（App Group 容器）· HealthKit 本地 · WatchConnectivity 🚧 暂缓
 ```
 
 ## 2. 核心架构决策
@@ -39,7 +40,7 @@
 | D2 | **程序化烘焙 + 图层合成** | 逐像素实时绘制不可行。构建期 Baker target 用同一份 Swift 绘制代码烤 PNG 图集（分层：身体/配饰/特效），运行时 SpriteKit GPU 合成，30fps |
 | D3 | **云端直连，无网关（🚧 暂缓——v0.3 裁决：对话云端方案待重新讨论，v1 先用本地意图池）** | 留档：豆包全家桶起步（流式 ASR + doubao LLM + TTS 单 key），讯飞为 ASR 备选；prompt 组装在端上；轻代理网关降为远期可选 |
 | D4 | **晨间记忆结算（🚧 暂缓：依赖 LLM，随对话方案一并重议；Memory 表保留）** | 留档：当日首次激活把昨日 EventLog 压成一次 LLM 调用 → Memory 落库 → 触发讲梦演出 |
-| D5 | **本地优先 + CloudKit 兜底** | SwiftData store 在 App Group；未登录/无网纯本地照玩；`quotaExceeded` 显式提示 |
+| D5 | **本地 only（v0.4 零云化）** | SwiftData store 在 App Group 容器，**无 CloudKit**（不申请开发者账号）；卸载即数据丢失，「备份导出」列远期；数据面 100% 设备本地 |
 | D7 | **对话走级联（🚧 暂缓：级联/E2E 整体方案待重新讨论，本节仅留档）** | 留档：结构化信号是交互刚需，文本 LLM 最可靠；半双工聆听界面废掉 E2E 全双工优势；E2E 为演进方向，只动 Gateway 层 |
 
 ## 3. 代码架构
@@ -63,7 +64,7 @@ Hatchling/
 │   │   ├── RhythmPlanner.swift      #   节律：早安梦/晚安/闹钟/主动开口预算
 │   │   └── BreedingRules.swift      #   融合校验（冷却/24h门槛/数量上限）
 │   ├── Sources/Persistence/
-│   │   ├── Store.swift              #   ModelContainer 装配（App Group + CloudKit）
+│   │   ├── Store.swift              #   ModelContainer 装配（App Group 本地，零云）
 │   │   ├── Repositories.swift       #   Pet/Event/Memory/Archive 读写
 │   │   └── ModelActor.swift         #   后台 @ModelActor（reconcile 落库/批处理）
 │   ├── Sources/Render/
@@ -256,11 +257,11 @@ App 内关键事件（出发/到家/孵化/融合）→ WidgetCenter.reloadAllTi
 | 故障 | 行为 |
 |---|---|
 | 无网 | 纯本地：chips 意图池 + emoji 反馈；任务/结算全本地 |
-| 未登录 iCloud | 纯本地模式常驻，HUD 小图标提示 |
+| ~~未登录 iCloud~~ | （零云化后不存在该故障面） |
 | ASR 失败/空结果 | unknown 意图（本地随机 emoji）+ chips 兜底 |
 | LLM 超时 6s | 同上；云端重试 1 次由客户端控制 |
 | TTS 失败 | 静音 + emoji 照常（体验降级不中断） |
-| CloudKit quota | 像素风提示「⚠ 云端仓库满了」；本地照玩 |
+| ~~CloudKit quota~~ | （零云化后不存在该故障面；数据丢失风险由「备份导出」远期兜底） |
 | HealthKit 拒绝 | 任务退化：按时长结算，步数进度隐藏 |
 
 ## 9. 性能与功耗
@@ -288,4 +289,4 @@ App 内关键事件（出发/到家/孵化/融合）→ WidgetCenter.reloadAllTi
 | M4 | 表盘：complication timeline + 心情点 | 抬腕见它，预算内 |
 | M5 | 育种：三层基因 + 融合 + 血统谱 + 放生归档 | 三代血脉树成立 |
 | M6 | 节律：HealthKit 睡眠/步数 + 早安梦话 + 闹钟 | 它知道你几点睡 |
-| M7 | 社交 P0 双星同孵 + 打磨 | 两块表孵出双胞胎 |
+| M7 | 社交 🚧 暂缓（双机传输方案待重议，CloudKit 通道已移除） | — |

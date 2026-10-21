@@ -1,0 +1,33 @@
+{
+  "": {
+    "swift-dependencies": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/primary.swiftdeps"
+  },
+  "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Domain/Entities.swift": {
+    "dependencies": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/Entities.d",
+    "object": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/Entities.swift.o",
+    "swiftmodule": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/Entities~partial.swiftmodule",
+    "swift-dependencies": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/Entities.swiftdeps",
+    "diagnostics": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/Entities.dia"
+  },
+  "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Domain/GameConfig.swift": {
+    "dependencies": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/GameConfig.d",
+    "object": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/GameConfig.swift.o",
+    "swiftmodule": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/GameConfig~partial.swiftmodule",
+    "swift-dependencies": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/GameConfig.swiftdeps",
+    "diagnostics": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/GameConfig.dia"
+  },
+  "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Domain/ValueTypes.swift": {
+    "dependencies": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/ValueTypes.d",
+    "object": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/ValueTypes.swift.o",
+    "swiftmodule": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/ValueTypes~partial.swiftmodule",
+    "swift-dependencies": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/ValueTypes.swiftdeps",
+    "diagnostics": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/ValueTypes.dia"
+  },
+  "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Persistence/Store.swift": {
+    "dependencies": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/Store.d",
+    "object": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/Store.swift.o",
+    "swiftmodule": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/Store~partial.swiftmodule",
+    "swift-dependencies": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/Store.swiftdeps",
+    "diagnostics": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/Store.dia"
+  }
+}

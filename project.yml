@@ -1,0 +1,37 @@
+name: Hatchling
+options:
+  bundleIdPrefix: com.hatchling
+  deploymentTarget:
+    watchOS: "11.0"
+  createIntermediateGroups: true
+packages:
+  HatchlingKit:
+    path: packages/HatchlingKit
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    WATCHOS_DEPLOYMENT_TARGET: "11.0"
+targets:
+  Hatchling:
+    type: application
+    platform: watchOS
+    sources:
+      - WatchApp
+    dependencies:
+      - package: HatchlingKit
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.hatchling.watch
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_CFBundleDisplayName: Hatchling
+        INFOPLIST_KEY_WKApplication: YES
+        INFOPLIST_KEY_WKWatchOnly: YES
+        TARGETED_DEVICE_FAMILY: "4"
+        CODE_SIGN_ENTITLEMENTS: WatchApp/Hatchling.entitlements
+schemes:
+  Hatchling:
+    build:
+      targets:
+        Hatchling: all
+    run:
+      config: Debug

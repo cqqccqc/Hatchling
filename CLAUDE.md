@@ -35,17 +35,31 @@
 - watchOS 11+ · SwiftUI + SpriteKit · v1 纯手表（数据层按跨端设计）
 - **结算制模拟**（D1）：无后台常驻，状态 = f(事件日志， now)，激活时 reconcile
 - **烘焙渲染**（D2/D6）：构建期用同一份 Swift 绘制代码烤 PNG 图集，运行时 SpriteKit 图层合成
-- SwiftData + CloudKit（App Group 共享，Widget 只读）；本地优先，无自建服务
+- **零云化（v2.3 裁决：不申请开发者账号）**：SwiftData 纯本地（App Group 容器，Widget 只读）；无 CloudKit/iCloud/TestFlight/App Store；卸载即数据丢失，「备份导出」列远期
 - 云端：**🚧 语音大模型对话整体暂缓（v0.3 裁决，方案待重新讨论）**——v1 对话形态 = 本地意图池 + emoji 反馈；原级联/豆包方案留档于 tech-architecture（D3/D7/§6.2/§7）；Memory 表与晨间记忆一并暂缓
 - 零文字交互：图标按钮 + emoji 反馈（意图表驱动）；聆听界面绿光晕 = 录音中
 - 对话约束：LLM 输出 ≤14 字 + 儿童内容护栏；失败降级本地意图池，永不卡死
 
 ## 当前待办（优先序）
 
-1. **M0 工程骨架**：Xcode 工程 + HatchlingKit SPM 包 + App Group + CloudKit 打通真机
+1. ~~M0 工程骨架~~ ✅ 2026-10-21 完成（模拟器全流程通过；**真机安装**：Xcode 选用户自己的免费 Apple ID 签名 → 真机 Run；⚠️ 免费签名 7 天过期，到期连 Mac 重新 Run 即可）
 2. M1 烘焙渲染管线（Baker target）→ M2 游戏循环（含 Genetics.fuse + Reconciler 单测）→ M4 表盘 → M5 育种 → M6 节律 → M7 社交（详见 tech-architecture §11）
 3. M3 对话：🚧 暂缓，待与用户重新讨论方案
 4. 表盘姿态集细节、社交 P0 双机同步仪式细节
+
+## 工程现状（代码）
+
+```
+Hatchling.xcodeproj   ← 由 xcodegen 从 project.yml 生成（改 project.yml 后须 `xcodegen generate`）
+project.yml           ← 工程定义（watchOS app 单 target + HatchlingKit 本地包）
+packages/HatchlingKit/  SPM 包：Domain(ValueTypes/Entities/GameConfig) + Persistence(Store)
+WatchApp/             SwiftUI 入口 + RootView（屋子列表/诞生蛋/孵化结算）
+```
+
+- 部署目标 watchOS 11；构建验证：`xcodebuild -project Hatchling.xcodeproj -scheme Hatchling -sdk watchsimulator build CODE_SIGNING_ALLOWED=NO`
+- 单测：`swift test --package-path packages/HatchlingKit`（Swift Testing）
+- 演示开关：模拟器 `xcrun simctl launch <udid> com.hatchling.watch -demoAutospawn`（空屋自动坠蛋）；蛋 30s 可破壳（demoHatchSeconds，正式版换 config.hatchMinutes）
+- App Group：`group.com.hatchling.app`（entitlements 已配，免费 Apple ID 可用；无 iCloud）
 
 ## 工作约定
 

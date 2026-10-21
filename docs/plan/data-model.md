@@ -1,17 +1,17 @@
 # Hatchling · 数据模型详细设计（SwiftData Schema）
 
 > v1.0 · 2026-10-20 · 配套：`tech-architecture.md`（D1 结算制 / D5 本地优先 + CloudKit）
-> 目标：可直接作为 M0 编码蓝本。所有模型满足 **CloudKit 同步约束**（无 unique 约束、属性全默认值/optional、关系最小化）。
+> 目标：可直接作为 M0 编码蓝本。~~CloudKit 同步约束~~（v1.2 零云化：无 CloudKit；以下约束仍保留——无 unique 约束、属性全默认值/optional、关系最小化，作为长期数据纪律）
 
 ---
 
 ## 0. 容器与存储布局
 
 ```swift
-// App Group 共享（主 App + 表盘 Widget 同一 store）
+// App Group 共享（主 App + 表盘 Widget 同一 store）· 零云（v1.2：无 CloudKit）
 let config = ModelConfiguration(
     groupContainer: .identifier("group.com.hatchling.app"),
-    cloudKitDatabase: .automatic        // 私有库自动同步
+    cloudKitDatabase: .none             // 不申请开发者账号，数据 100% 本地
 )
 let container = try ModelContainer(
     for: Pet.self, EventLog.self, Memory.self, Archive.self,
@@ -253,11 +253,12 @@ enum Reconciler {
 
 ## 7. CloudKit 同步注意事项（编码期 checklist）
 
-- [ ] 所有 `@Model` 属性带默认值或 optional（编译期 CloudKit 强制）
-- [ ] 不使用 `@Attribute(.unique)`——唯一性由业务层 UUID 保证
-- [ ] 不使用 SwiftData 关系——全部 UUID 弱引用
-- [ ] 复合属性（GeneValue）在 CloudKit 中为 Data blob，改其 Swift 定义 = 数据迁移，**发布 v1 前锁定字段**
+- [x] 所有 `@Model` 属性带默认值或 optional（保持数据纪律）
+- [x] 不使用 `@Attribute(.unique)`——唯一性由业务层 UUID 保证
+- [x] 不使用 SwiftData 关系——全部 UUID 弱引用
+- [ ] 复合属性（GeneValue）为 Data blob 存储，改其 Swift 定义 = 数据迁移，**发布 v1 前锁定字段**
 - [ ] Widget 读同一 App Group store：只读，写入仅主 App（避免双写冲突）
+- [ ] （v1.2 零云化）数据 100% 本地：卸载即丢失，备份导出功能远期兜底
 - [ ] 大字段审视：EventLog.payload 控制在 <1KB；Memory.summary ≤100 字
 
 ## 8. 待办衔接
