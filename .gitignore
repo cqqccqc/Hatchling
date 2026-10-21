@@ -103,3 +103,6 @@ compile_commands.json
 *.bak
 Testing/
 .cache/
+
+# SPM 构建产物
+.build/

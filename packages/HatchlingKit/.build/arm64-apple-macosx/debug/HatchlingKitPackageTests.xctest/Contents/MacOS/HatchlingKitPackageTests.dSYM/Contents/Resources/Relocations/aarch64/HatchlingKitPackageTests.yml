@@ -1,5 +1,0 @@
----
-triple:          'arm64-apple-darwin'
-binary-path:     '/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKitPackageTests.xctest/Contents/MacOS/HatchlingKitPackageTests'
-relocations:     []
-...
