@@ -67,4 +67,6 @@ WatchApp/             SwiftUI 入口 + RootView（屋子列表/诞生蛋/孵化�
 - 全程中文交流；文档与注释中文为主，代码标识符英文
 - 改决策必须同步回写对应文档：版本号递增 + 文档头部追加修订记录（现有惯例见各文档头部）
 - `docs/plan/*.html` 原型是独立单文件，改完用浏览器直接验证（可借助 Playwright/Chrome MCP 跑 `python3 -m http.server` 测试，file:// 下麦克风等能力受限）
+- **xcodegen 用显式文件列表**：WatchApp/ 下**新增或删除源文件后必须 `xcodegen generate`**（改已有文件内容不需要）；改 project.yml 同理
+- 演示开关（simctl launch 传参）：`-demoAutospawn` 空屋坠蛋 · `-demoHome` 直接活体 · `-demoFeed` 打开喂豆面板
 - git：工作分支 `dev`，`main` 用于 PR；commit 信息中文、结尾按惯例附 Co-Authored-By

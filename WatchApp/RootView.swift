@@ -9,7 +9,7 @@ struct RootView: View {
     @State private var config = GameConfig.load()
     @State private var now = Date()
     @State private var currentID: UUID?
-    @State private var feedOpen = false
+    @State private var feedOpen = ProcessInfo.processInfo.arguments.contains("-demoFeed")
     @State private var feedback: [String]?
     @State private var pendingTier: [UUID: TaskTier] = [:]   // arrived 待收取的档位
 
@@ -44,18 +44,43 @@ struct RootView: View {
                         emptyState
                     }
                     actionRow
-                    if feedOpen, currentPet != nil { feedPanel }
                     if !others.isEmpty { othersRow }
                 }
                 .padding(.horizontal, 6)
                 .padding(.bottom, 8)
             }
             feedbackOverlay
+            // 喂豆面板打开时：点击面板外任意处收起
+            if feedOpen {
+                Color.clear
+                    .contentShape(Rectangle())
+                    .onTapGesture { withAnimation { feedOpen = false } }
+            }
+        }
+        .safeAreaInset(edge: .bottom) {
+            if feedOpen {
+                feedPanel
+                    .transition(.move(edge: .bottom).combined(with: .opacity))
+                    .padding(.vertical, 8)
+                    .frame(maxWidth: .infinity)
+                    .background(Color(white: 0.09))
+            } else {
+                spawnButton
+            }
         }
         .task {
             now = Date()
-            if pets.isEmpty, ProcessInfo.processInfo.arguments.contains("-demoAutospawn") {
+            let args = ProcessInfo.processInfo.arguments
+            if pets.isEmpty, args.contains("-demoAutospawn") {
                 spawnEgg()
+            }
+            // -demoHome：直接一只活体宠物（测试/截图用）
+            if pets.isEmpty, args.contains("-demoHome") {
+                let pet = Pet(name: ["零波", "咕噜", "噗啾"].randomElement()!,
+                              gene: .random(), state: .home)
+                pet.birthAt = Date()
+                ctx.insert(pet)
+                try? ctx.save()
             }
         }
         .onReceive(Timer.publish(every: 2, on: .main, in: .common).autoconnect()) { t in
@@ -93,11 +118,28 @@ struct RootView: View {
         .padding(.top, 30)
     }
 
+    private var spawnButton: some View {
+        Button {
+            spawnEgg()
+        } label: {
+            Image(systemName: "sparkles")
+                .font(.system(size: 22, weight: .bold))
+                .foregroundStyle(.black)
+                .frame(width: 62, height: 48)
+                .background(RoundedRectangle(cornerRadius: 14)
+                    .fill(Color(hex: 0x2ce8f5)))
+        }
+        .buttonStyle(.plain)
+        .disabled(pets.count >= config.maxPets)
+        .opacity(pets.count >= config.maxPets ? 0.3 : 1)
+    }
+
     // MARK: - 动作行（全图标）
 
     private var actionRow: some View {
         HStack(spacing: 14) {
-            iconButton("🫘", active: feedOpen) { withAnimation { feedOpen.toggle() } }
+            iconButton("🫘", active: feedOpen,
+                       enabled: currentPet?.stateKind == .home) { withAnimation { feedOpen.toggle() } }
             exploreButton
             iconButton("🧬", enabled: false) {}
         }
@@ -132,6 +174,7 @@ struct RootView: View {
 
     private var feedPanel: some View {
         HStack(spacing: 12) {
+            // 关闭：点面板外即收（另有全屏遮罩）
             ForEach(TasteGene.allCases, id: \.rawValue) { t in
                 Button {
                     feed(t)
