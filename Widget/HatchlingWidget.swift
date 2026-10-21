@@ -22,6 +22,7 @@ struct PetDisplay: Sendable {
     var antenna: AntennaGene
     var mood: Double
     var isEgg: Bool
+    var geneShiny: Bool = false
 }
 
 // MARK: - 数据读取（App Group 共享 store · 只读）
@@ -44,7 +45,8 @@ enum StoreReader {
                        pattern: p.gene?.pattern.express ?? .plain,
                        antenna: p.gene?.antenna.express ?? .round,
                        mood: p.mood,
-                       isEgg: p.stateKind == .egg)
+                       isEgg: p.stateKind == .egg,
+                       geneShiny: p.gene?.shiny ?? false)
         }
     }
 }
@@ -136,27 +138,76 @@ struct PetComplicationView: View {
         .containerBackground(for: .widget) { Color.black }
     }
 
-    /// 矩形：宠物帧 + 名字 + 心情条
+    /// 矩形（智能叠放 = 伪表盘）：星空铺满 + 宠物居中大图 + 底部状态行
     private var rectangular: some View {
-        Group {
+        ZStack {
+            starfield
             switch entry.pet {
-            case .some(let pet):
-                HStack(spacing: 6) {
-                    if pet.isEgg {
-                        Text("🥚").font(.system(size: 24))
-                    } else {
-                        frameImage(pet: pet, eyesClosed: entry.eyesClosed)
-                            .frame(width: 34, height: 34)
-                        nameColumn(pet)
+            case .some(let pet) where !pet.isEgg:
+                VStack(spacing: 4) {
+                    Spacer(minLength: 0)
+                    frameImage(pet: pet, eyesClosed: entry.eyesClosed)
+                        .frame(width: 84, height: 84)
+                    Spacer(minLength: 0)
+                    HStack(spacing: 6) {
+                        moodBar(pet.mood)
+                        Text(pet.name)
+                            .font(.system(size: 13, weight: .semibold))
+                            .lineLimit(1)
+                        if pet.geneShiny { Text("✨").font(.caption2) }
+                    }
+                    .padding(.bottom, 4)
+                }
+            case .some:
+                VStack(spacing: 6) {
+                    Spacer(minLength: 0)
+                    Text("🥚").font(.system(size: 40))
+                    Spacer(minLength: 0)
+                    Text("· · ·").font(.system(size: 12, design: .monospaced))
+                        .foregroundStyle(.secondary)
+                }
+            case .none:
+                VStack(spacing: 8) {
+                    Spacer(minLength: 0)
+                    Text("🌌").font(.system(size: 34))
+                    HStack(spacing: 5) {
+                        ForEach(0..<3, id: \.self) { _ in
+                            Circle().fill(Color.white.opacity(0.15)).frame(width: 4, height: 4)
+                        }
                     }
                     Spacer(minLength: 0)
                 }
-            case .none:
-                Text("🌌").font(.system(size: 22))
-                Spacer(minLength: 0)
             }
         }
         .containerBackground(for: .widget) { Color.black }
+    }
+
+    /// 伪表盘星空（静态点阵，烘焙星空的低配近似）
+    private var starfield: some View {
+        Canvas { ctx, size in
+            ctx.fill(Path(CGRect(origin: .zero, size: size)), with: .color(.black))
+            let stars: [(Double, Double)] = [(0.1, 0.12), (0.3, 0.06), (0.55, 0.1), (0.8, 0.08),
+                                             (0.15, 0.3), (0.9, 0.28), (0.45, 0.22), (0.7, 0.4),
+                                             (0.2, 0.55), (0.85, 0.6), (0.05, 0.45), (0.6, 0.62),
+                                             (0.35, 0.5), (0.95, 0.5), (0.5, 0.35)]
+            for (fx, fy) in stars {
+                let r = Double.random(in: 0.8...1.6)
+                ctx.fill(Path(CGRect(x: size.width * fx, y: size.height * fy,
+                                     width: r, height: r)),
+                         with: .color(.white.opacity(0.35)))
+            }
+        }
+        .ignoresSafeArea()
+    }
+
+    private func moodBar(_ mood: Double) -> some View {
+        HStack(spacing: 2.5) {
+            ForEach(0..<3, id: \.self) { i in
+                RoundedRectangle(cornerRadius: 1.5)
+                    .fill(i < moodLv(mood) ? Color(hex: 0x63c74d) : Color.white.opacity(0.18))
+                    .frame(width: 9, height: 11)
+            }
+        }
     }
 
     private func nameColumn(_ pet: PetDisplay) -> some View {
