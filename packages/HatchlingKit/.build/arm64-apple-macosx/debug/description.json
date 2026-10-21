@@ -148,6 +148,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Engine/Genetics.swift"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Persistence/Store.swift"
         },
         {
@@ -190,6 +194,7 @@
         "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/Entities.swift.o",
         "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/GameConfig.swift.o",
         "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/ValueTypes.swift.o",
+        "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/Genetics.swift.o",
         "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/Store.swift.o",
         "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/CreatureRenderer.swift.o",
         "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/PetScene.swift.o",
@@ -262,6 +267,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/Genetics.swift.o"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/Store.swift.o"
         },
         {
@@ -294,6 +303,7 @@
         "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Domain/Entities.swift",
         "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Domain/GameConfig.swift",
         "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Domain/ValueTypes.swift",
+        "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Engine/Genetics.swift",
         "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Persistence/Store.swift",
         "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Render/CreatureRenderer.swift",
         "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Render/PetScene.swift",
@@ -410,6 +420,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Tests/HatchlingKitTests/GeneticsTests.swift"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
         },
         {
@@ -425,7 +439,8 @@
       "moduleName" : "HatchlingKitTests",
       "moduleOutputPath" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/Modules/HatchlingKitTests.swiftmodule",
       "objects" : [
-        "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKitTests.build/DomainSmokeTests.swift.o"
+        "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKitTests.build/DomainSmokeTests.swift.o",
+        "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKitTests.build/GeneticsTests.swift.o"
       ],
       "otherArguments" : [
         "-target",
@@ -483,12 +498,17 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKitTests.build/GeneticsTests.swift.o"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/Modules/HatchlingKitTests.swiftmodule"
         }
       ],
       "prepareForIndexing" : false,
       "sources" : [
-        "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Tests/HatchlingKitTests/DomainSmokeTests.swift"
+        "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Tests/HatchlingKitTests/DomainSmokeTests.swift",
+        "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Tests/HatchlingKitTests/GeneticsTests.swift"
       ],
       "tempsPath" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKitTests.build",
       "wholeModuleOptimization" : false
@@ -568,6 +588,7 @@
       "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Domain/Entities.swift",
       "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Domain/GameConfig.swift",
       "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Domain/ValueTypes.swift",
+      "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Engine/Genetics.swift",
       "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Persistence/Store.swift",
       "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Render/CreatureRenderer.swift",
       "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Render/PetScene.swift",
@@ -694,6 +715,7 @@
       "hatchlingkit",
       "-c",
       "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Tests/HatchlingKitTests/DomainSmokeTests.swift",
+      "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Tests/HatchlingKitTests/GeneticsTests.swift",
       "-I",
       "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/Modules",
       "-target",
@@ -836,6 +858,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/Genetics.swift.o"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/PetScene.swift.o"
         },
         {
@@ -879,6 +905,10 @@
         {
           "kind" : "file",
           "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Domain/ValueTypes.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Engine/Genetics.swift"
         },
         {
           "kind" : "file",
@@ -942,6 +972,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/Genetics.swift.o"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/PetScene.swift.o"
         },
         {
@@ -971,6 +1005,10 @@
         {
           "kind" : "file",
           "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKitTests.build/DomainSmokeTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKitTests.build/GeneticsTests.swift.o"
         }
       ],
       "outputFilePath" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKitPackageTests.product/Objects.LinkFileList"
@@ -985,6 +1023,10 @@
         {
           "kind" : "file",
           "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Tests/HatchlingKitTests/DomainSmokeTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Tests/HatchlingKitTests/GeneticsTests.swift"
         }
       ],
       "outputFilePath" : "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKitTests.build/sources"

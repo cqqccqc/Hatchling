@@ -1,6 +1,7 @@
 /Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Domain/Entities.swift
 /Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Domain/GameConfig.swift
 /Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Domain/ValueTypes.swift
+/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Engine/Genetics.swift
 /Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Persistence/Store.swift
 /Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Render/CreatureRenderer.swift
 /Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Render/PetScene.swift

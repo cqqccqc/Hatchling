@@ -23,6 +23,13 @@
     "swift-dependencies": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/ValueTypes.swiftdeps",
     "diagnostics": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/ValueTypes.dia"
   },
+  "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Engine/Genetics.swift": {
+    "dependencies": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/Genetics.d",
+    "object": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/Genetics.swift.o",
+    "swiftmodule": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/Genetics~partial.swiftmodule",
+    "swift-dependencies": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/Genetics.swiftdeps",
+    "diagnostics": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/Genetics.dia"
+  },
   "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/Sources/HatchlingKit/Persistence/Store.swift": {
     "dependencies": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/Store.d",
     "object": "/Users/chenqi44/github/Hatchling/packages/HatchlingKit/.build/arm64-apple-macosx/debug/HatchlingKit.build/Store.swift.o",
