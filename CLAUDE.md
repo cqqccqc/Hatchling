@@ -14,6 +14,7 @@
 | `docs/plan/tech-architecture.md` | 技术架构：决策 D1-D6 / 管线 / 降级 / 里程碑 M0-M7 | v0.1 |
 | `docs/plan/data-model.md` | 数据模型：SwiftData schema / 三层基因槽 / 结算引擎 | v1.1 |
 | `docs/plan/breeding-algorithm.md` | 融合遗传算法：三层池/突变分层/隐藏配方/保底/概率校验 | v1.0 |
+| `docs/DEV-STATUS.md` | **开发状态**：已完成清单/代码实况/调试指南/踩坑记录/剩余路线——继续开发前先读它 | 持续更新 |
 | `docs/plan/style-sampler.html` | 像素渲染采样器 v0.2（赛博版）——三物种/动画状态机渲染引擎的**原始蓝本**（原型与烘焙管线的移植源） | 已验证 |
 | `docs/archive/style-sampler.html` | v0.1 软萌版采样器 | 留档 |
 | `docs/plan/rare-gene-lab.html` | 稀有基因画廊 + 融合仪式动画序列（`?legend=1` 强制传说） | 已验证 |

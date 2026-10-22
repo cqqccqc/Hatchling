@@ -543,8 +543,9 @@ struct RootView: View {
                     p.stateKind = .home
                     p.birthAt = now
                     p.hatchAt = nil
+                    p.lastTaskDate = now      // 孵化日在家陪主人，次日开始挖矿
                     ctx.insert(EventLog(type: .hatchDone, petID: id))
-                    showFeedback(["✨"])
+                    showFeedback(["✨", "🏠"])
                 }
             case .updateVitals(let id, let hunger, let mood, let tick):
                 if let p = pets.first(where: { $0.id == id }) {
@@ -582,9 +583,10 @@ struct RootView: View {
         pet.stateKind = .home
         pet.birthAt = now
         pet.hatchAt = nil
+        pet.lastTaskDate = now      // 孵化日在家
         ctx.insert(EventLog(type: .hatchDone, petID: pet.id))
         try? ctx.save()
-        showFeedback(["✨"])
+        showFeedback(["✨", "🏠"])
     }
 
     private func spawnEgg() {
