@@ -6,6 +6,7 @@ import HatchlingKit
 /// M2 主页：当前宠物大卡（摸头/喂养/探险）+ 屋子小卡（切换）· 零文字
 struct RootView: View {
     @Environment(\.modelContext) private var ctx
+    @Environment(\.scenePhase) private var scenePhase
     @Query(sort: \Pet.createdAt) private var pets: [Pet]
     @State private var config = GameConfig.load()
     @State private var now = Date()
@@ -24,13 +25,27 @@ struct RootView: View {
     @State private var moodPulse = 0
     @State private var annoyPulse = 0
     // M5 演示加速（正式版：config.fuseGateHours / fatigueHours）
-    private let demoFuseGateSeconds: TimeInterval = 10
-    private let demoCooldownSeconds: TimeInterval = 30
 
-    /// M0 演示加速（正式版：config.hatchMinutes / taskMaxHours）
-    private let demoHatchSeconds: TimeInterval = 30
-    private let demoTaskInterval: TimeInterval = 90
-    private var taskInterval: TimeInterval { demoTaskInterval }
+    /// 节奏双轨：正式（config）/ 演示加速（-demoFast）
+    private var demoFast: Bool {
+        ProcessInfo.processInfo.arguments.contains("-demoFast")
+    }
+    /// 孵化时长：正式 30min（config）/ 演示 30s
+    private var hatchInterval: TimeInterval {
+        demoFast ? 30 : TimeInterval(config.hatchMinutes * 60)
+    }
+    /// 任务最晚时长：正式 10h（config）/ 演示 90s
+    private var taskInterval: TimeInterval {
+        demoFast ? 90 : TimeInterval(config.taskMaxHours * 3600)
+    }
+    /// 融合门槛：正式 24h（config）/ 演示 10s
+    private var fuseGateInterval: TimeInterval {
+        demoFast ? 10 : TimeInterval(config.fuseGateHours * 3600)
+    }
+    /// 繁育冷却：正式首档 4h（config）/ 演示 30s
+    private var cooldownInterval: TimeInterval {
+        demoFast ? 30 : TimeInterval((config.fatigueHours.first ?? 4) * 3600)
+    }
 
     private var currentPet: Pet? {
         pets.first { $0.id == currentID } ?? pets.first
@@ -59,9 +74,11 @@ struct RootView: View {
                     if let pet = currentPet {
                         CurrentPetCard(pet: pet, now: now,
                                        taskInterval: taskInterval,
+                                       hatchInterval: hatchInterval,
                                        stepsToday: stepsToday,
                                        moodPulse: moodPulse,
                                        annoyPulse: annoyPulse,
+                                       aod: scenePhase != .active,
                                        pendingTier: pendingTier[pet.id],
                                        onHatch: { hatch(pet) },
                                        onCollect: { collect(pet) })
@@ -385,7 +402,7 @@ struct RootView: View {
            pets.count < config.maxPets {
             let egg = Pet(name: ["蛋蛋", "小星", "豆蛋"].randomElement()!,
                           gene: .random(), state: .egg, source: "task",
-                          hatchAt: Date().addingTimeInterval(demoHatchSeconds))
+                          hatchAt: Date().addingTimeInterval(hatchInterval))
             ctx.insert(egg)
             showFeedback(["🥚", "🎉"], hold: 2.2)
         } else {
@@ -413,7 +430,7 @@ struct RootView: View {
 
     private func tapFuseCandidate(_ pet: Pet) {
         guard pet.stateKind == .home else { showFeedback(["⏳"]); return }
-        guard Date().timeIntervalSince(pet.birthAt) >= demoFuseGateSeconds else {
+        guard Date().timeIntervalSince(pet.birthAt) >= fuseGateInterval else {
             showFeedback(["🐣"]); return
         }
         if let cd = pet.cooldownUntil, Date() < cd { showFeedback(["⏳"]); return }
@@ -451,7 +468,7 @@ struct RootView: View {
     private func finishFusion() {
         guard let pf = pendingFusion else { ceremony = nil; return }
         let egg = Pet(name: pf.childName, gene: pf.output.gene, state: .egg,
-                      source: "fuse", hatchAt: Date().addingTimeInterval(demoHatchSeconds))
+                      source: "fuse", hatchAt: Date().addingTimeInterval(hatchInterval))
         egg.gen = max(parentGen(pf.parentIDs[0]), parentGen(pf.parentIDs[1])) + 1
         egg.parentA = pf.parentIDs[0]
         egg.parentB = pf.parentIDs[1]
@@ -462,7 +479,7 @@ struct RootView: View {
         for pid in pf.parentIDs {
             if let p = pets.first(where: { $0.id == pid }) {
                 p.fuseCount += 1
-                p.cooldownUntil = Date().addingTimeInterval(demoCooldownSeconds)
+                p.cooldownUntil = Date().addingTimeInterval(cooldownInterval)
             }
         }
         if Genetics.shouldResetPity(pf.output) { BreedingPity.reset() } else { BreedingPity.increment() }
@@ -574,7 +591,7 @@ struct RootView: View {
         let names = ["零波", "咕噜", "噗啾", "豆崽", "咪团", "泡球"]
         let pet = Pet(name: names.randomElement()!, gene: .random(),
                       state: .egg, source: "star",
-                      hatchAt: Date().addingTimeInterval(demoHatchSeconds))
+                      hatchAt: Date().addingTimeInterval(hatchInterval))
         ctx.insert(pet)
         ctx.insert(EventLog(type: .born, petID: pet.id, payload: #"{"source":"star"}"#))
         try? ctx.save()
@@ -595,9 +612,11 @@ struct CurrentPetCard: View {
     let pet: Pet
     let now: Date
     let taskInterval: TimeInterval
+    let hatchInterval: TimeInterval
     var stepsToday: Int = 0
     var moodPulse: Int = 0
     var annoyPulse: Int = 0
+    var aod: Bool = false
     let pendingTier: TaskTier?
     let onHatch: () -> Void
     let onCollect: () -> Void
@@ -618,7 +637,7 @@ struct CurrentPetCard: View {
     @ViewBuilder private var eggBody: some View {
         let due = pet.hatchAt ?? now
         let remain = max(0, due.timeIntervalSince(now))
-        let progress = 1 - remain / max(0.001, demoHatchSeconds())
+        let progress = 1 - remain / max(0.001, hatchInterval)
         HStack(spacing: 12) {
             Text("🥚").font(.system(size: 38))
             VStack(alignment: .leading, spacing: 5) {
@@ -633,8 +652,6 @@ struct CurrentPetCard: View {
             Spacer()
         }
     }
-
-    private func demoHatchSeconds() -> TimeInterval { 30 }
 
     // 活体（home）：渲染 + 名字 + 心情条 + 饱食条
     @ViewBuilder private var petBody: some View {

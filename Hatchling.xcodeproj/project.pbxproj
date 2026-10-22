@@ -16,6 +16,7 @@
 		6A1A42E575C9CBBEBC729D60 /* HatchlingWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 809268A68DF083363B27094C /* HatchlingWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		6E60F5BDDB3DB510388D4010 /* AudioFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5A460FF88B1DD3A092DE2D /* AudioFeedback.swift */; };
 		A498E29509E7856E54230F50 /* HatchlingKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9ED3703E1183385B82031713 /* HatchlingKit */; };
+		BBADFFBF3D8B0110478B4F22 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8DD6797124E12003A19ADD72 /* Assets.xcassets */; };
 		F268406527B1E600A296AA49 /* Ceremonies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED81DB6D77292CCBD0E3DE7 /* Ceremonies.swift */; };
 /* End PBXBuildFile section */
 
@@ -54,6 +55,7 @@
 		79846D58AA2244DCB6B35BCA /* Widget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Widget.entitlements; sourceTree = "<group>"; };
 		7C5A460FF88B1DD3A092DE2D /* AudioFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioFeedback.swift; sourceTree = "<group>"; };
 		809268A68DF083363B27094C /* HatchlingWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = HatchlingWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		8DD6797124E12003A19ADD72 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9ED81DB6D77292CCBD0E3DE7 /* Ceremonies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ceremonies.swift; sourceTree = "<group>"; };
 		A4D84869EF1B900397B6042A /* HatchlingWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HatchlingWidget.swift; sourceTree = "<group>"; };
 		BC7476C6F66C26150B528985 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 		91EFBE7D036413F584F6B901 /* WatchApp */ = {
 			isa = PBXGroup;
 			children = (
+				8DD6797124E12003A19ADD72 /* Assets.xcassets */,
 				7C5A460FF88B1DD3A092DE2D /* AudioFeedback.swift */,
 				9ED81DB6D77292CCBD0E3DE7 /* Ceremonies.swift */,
 				107AE95455F789722047AEAA /* Hatchling.entitlements */,
@@ -138,6 +141,7 @@
 			buildConfigurationList = A5A9C31AEF8460B9355CFCCE /* Build configuration list for PBXNativeTarget "Hatchling" */;
 			buildPhases = (
 				14410BF6CA03DFFE6B41BE70 /* Sources */,
+				56B36676AAC6A28406345C5F /* Resources */,
 				92C1338CE36292E3312CBB54 /* Frameworks */,
 				6BCE5924DA9051556C13CF8A /* Embed Foundation Extensions */,
 			);
@@ -206,6 +210,17 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		56B36676AAC6A28406345C5F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BBADFFBF3D8B0110478B4F22 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		14410BF6CA03DFFE6B41BE70 /* Sources */ = {

@@ -1,4 +1,7 @@
 import Foundation
+import CoreGraphics
+import ImageIO
+import UniformTypeIdentifiers
 import HatchlingKit
 
 // Baker：构建期烘焙像素图集（同一份绘制代码 → PNG）
@@ -61,3 +64,39 @@ for a in AntennaGene.allCases {
 }
 
 print("✓ Baked \(count) frames → \(dir.path)")
+
+// App 图标：星空 + 居中豆荚大使（48 网格 ×21 nearest = 1008，画布居中到 1024）
+if CommandLine.arguments.count > 2 {
+    let iconURL = URL(fileURLWithPath: CommandLine.arguments[2])
+    var g = PixelGrid()
+    CreatureRenderer.drawBackground(&g)
+    // 加密星点（图标氛围）
+    for (sx, sy) in [(3.0, 3.0), (12.0, 5.0), (44.0, 4.0), (7.0, 40.0), (41.0, 43.0),
+                     (20.0, 44.0), (35.0, 20.0), (4.0, 22.0), (30.0, 2.0), (46.0, 30.0)] {
+        g.px(sx, sy, Pixel(hex: 0xeafcff))
+    }
+    let spec = CreatureSpec(species: .pod, color: .cyan, antenna: .round,
+                            pattern: .belly, eye: .dot, phase: 0)
+    CreatureRenderer.drawBody(&g, spec: spec)
+    CreatureRenderer.drawEyesLayer(&g, species: spec.species, eye: .dot, color: spec.color)
+    CreatureRenderer.drawAntennaLayer(&g, spec.antenna, spec.color)
+    if let icon = g.upscaledCGImage(factor: 21) {
+        let cs = CGColorSpace(name: CGColorSpace.sRGB)!
+        let ctx = CGContext(data: nil, width: 1024, height: 1024, bitsPerComponent: 8,
+                            bytesPerRow: 1024 * 4, space: cs,
+                            bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue)!
+        ctx.setFillColor(CGColor(srgbRed: 0x08/255.0, green: 0x09/255.0, blue: 0x0d/255.0, alpha: 1))
+        ctx.fill(CGRect(x: 0, y: 0, width: 1024, height: 1024))
+        ctx.interpolationQuality = .none
+        ctx.draw(icon, in: CGRect(x: 8, y: 8, width: 1008, height: 1008))
+        if let final = ctx.makeImage() {
+            let out = NSMutableData()
+            if let dest = CGImageDestinationCreateWithData(out, UTType.png.identifier as CFString, 1, nil) {
+                CGImageDestinationAddImage(dest, final, nil)
+                CGImageDestinationFinalize(dest)
+                try? (out as Data).write(to: iconURL)
+                print("✓ Icon → \(iconURL.path)")
+            }
+        }
+    }
+}

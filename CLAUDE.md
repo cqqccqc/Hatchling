@@ -55,7 +55,7 @@
 Hatchling.xcodeproj   ← 由 xcodegen 从 project.yml 生成（改 project.yml 后须 `xcodegen generate`）
 project.yml           ← 工程定义（watchOS app + widget extension + HatchlingKit 本地包）
 packages/HatchlingKit/  SPM 包：Domain / Engine(Genetics/Reconciler) / Persistence / Render(PixelGrid/CreatureRenderer/PetScene/AtlasComposer) / Baker
-WatchApp/             SwiftUI 入口 + RootView（当前宠物大卡/喂豆/矿洞/屋子小卡）
+WatchApp/             SwiftUI 入口 + RootView（当前宠物大卡/喂豆/矿洞/屋子小卡）+ Assets.xcassets（Baker 烘制的 App 图标）
 Widget/               表盘 Complication（accessoryCircular/Rectangular，timeline 24 条，读 App Group）
 ```
 
@@ -70,5 +70,5 @@ Widget/               表盘 Complication（accessoryCircular/Rectangular，time
 - 改决策必须同步回写对应文档：版本号递增 + 文档头部追加修订记录（现有惯例见各文档头部）
 - `docs/plan/*.html` 原型是独立单文件，改完用浏览器直接验证（可借助 Playwright/Chrome MCP 跑 `python3 -m http.server` 测试，file:// 下麦克风等能力受限）
 - **xcodegen 用显式文件列表**：WatchApp/ 下**新增或删除源文件后必须 `xcodegen generate`**（改已有文件内容不需要）；改 project.yml 同理
-- 演示开关（simctl launch 传参）：`-demoAutospawn` 空屋坠蛋 · `-demoHome` 直接活体 · `-demoFeed` 打开喂豆面板 · `-demoSteps=N` 注入步数（验证任务标准档）· `-noNotifications` 跳过闹钟授权
+- 演示开关（simctl launch 传参）：`-demoAutospawn` 空屋坠蛋 · `-demoHome` 直接活体 · `-demoFeed` 打开喂豆面板 · `-demoSteps=N` 注入步数（验证任务标准档）· `-noNotifications` 跳过闹钟授权 · `-demoFast` 演示节奏（30s 孵化/90s 任务/10s 融合门槛）——**不带则走正式节奏（30min 孵化/10h 任务/24h 门槛）**
 - git：工作分支 `dev`，`main` 用于 PR；commit 信息中文、结尾按惯例附 Co-Authored-By

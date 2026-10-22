@@ -35,6 +35,19 @@ public extension PixelGrid {
         return out as Data
     }
 
+    /// 最近邻放大（像素风图标/大图用，插值关闭保锐利）
+    func upscaledCGImage(factor: Int) -> CGImage? {
+        guard let base = makeCGImage() else { return nil }
+        let w = size * factor, h = size * factor
+        let cs = CGColorSpace(name: CGColorSpace.sRGB)!
+        let ctx = CGContext(data: nil, width: w, height: h, bitsPerComponent: 8,
+                            bytesPerRow: w * 4, space: cs,
+                            bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue)!
+        ctx.interpolationQuality = .none
+        ctx.draw(base, in: CGRect(x: 0, y: 0, width: w, height: h))
+        return ctx.makeImage()
+    }
+
     func writePNG(to url: URL) throws {
         guard let data = pngData() else {
             throw CocoaError(.fileWriteUnknown, userInfo: [NSLocalizedDescriptionKey: "PNG encode failed"])
